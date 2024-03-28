@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Menu from "@/app/components/Menu/menu";
 
 export default function Home() {
   return (
     <main>
-        <h1>Marghoob</h1>
+      <Menu />
     </main>
   );
 }
