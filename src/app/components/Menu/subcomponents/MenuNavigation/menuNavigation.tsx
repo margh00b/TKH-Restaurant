@@ -9,7 +9,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
     (state) => state.menu.menuCategoryState,
   );
   return (
-    <div className="flex justify-around items-center w-full h-20 px-4 mb-5 shadow-lg rounded-[17px]">
+    <div className="flex justify-around items-center w-full h-20 px-4 mb-5 shadow-lg rounded-[17px] text-xl border-2 border-gray-100">
       <ul className="hidden md:flex px-10 flex-wrap">
         {categories.map((category, index) => (
           <div
@@ -17,7 +17,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
             onClick={() => {
               dispatch(setMenuCategoryState(category));
             }}
-            className="flex items-center font-bold text-[#a9a9a9] duration-200 cursor-pointer"
+            className="flex items-center text-[#a9a9a9] duration-200 cursor-pointer"
           >
             <li
               key={category}

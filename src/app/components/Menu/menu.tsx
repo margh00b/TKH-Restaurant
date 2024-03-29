@@ -7,7 +7,8 @@ import { useAppSelector } from "@/redux/store";
 const Menu = () => {
   const categoryState = useAppSelector((state) => state.menu.menuCategoryState);
   return (
-    <div className="m-5">
+    <div className="m-10">
+      <h1 className="text-center text-4xl mb-5">Our Menu</h1>
       <MenuNav categories={menuCategoryData} />
       <div className="flex flex-wrap justify-evenly p-5  rounded-[30px] bg-[linear-gradient(24deg,var(--tw-gradient-stops))] from-[#2c2c2c] from-50% to-[#554d48]">
         {menuData

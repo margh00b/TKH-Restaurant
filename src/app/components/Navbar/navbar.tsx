@@ -7,12 +7,12 @@ import { useState } from "react";
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   return (
-    <div className="flex justify-around items-center w-full h-20 px-4 shadow-lg">
+    <div className="flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
       <ul className="hidden md:flex">
         {links.map(({ id, link, name }) => (
           <li
             key={id}
-            className="px-4 cursor-pointer font-medium text-black border-b-2 border-transparent hover:border-b-2 hover:border-black duration-200"
+            className="px-4 cursor-pointer font-medium text-black border-b-2 border-transparent hover:border-b-2 hover:border-orange-500 hover:text-orange-500 duration-200"
           >
             <Link href={link}>{name}</Link>
           </li>
