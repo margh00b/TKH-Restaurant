@@ -4,7 +4,7 @@ import { FaPhone } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 const Footer = () => {
   return (
-    <footer className="p-4">
+    <footer className="p-4 border-t-2">
       <div className="flex flex-col">
         <div className="flex justify-evenly ">
           <div className="max-w-[33%]">
