@@ -7,7 +7,7 @@ import { useState } from "react";
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   return (
-    <div className="flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
+    <div className="absolute top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
       <ul className="hidden md:flex">
         {links.map(({ id, link, name }) => (
           <li

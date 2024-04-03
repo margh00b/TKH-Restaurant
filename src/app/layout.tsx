@@ -8,8 +8,8 @@ import { DM_Serif_Display } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dmSerifDisplay",
-  preload: false,
   weight: "400",
+  subsets: ["latin"],
 });
 export const metadata: Metadata = {
   title: "Tandoori Kabab Hut",
