@@ -3,11 +3,12 @@ import Link from "next/link";
 import LinkItem from "@/app/components/Navbar/navbarLinks.interface";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   return (
-    <div className="absolute top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
+    <div className="fixed bg-white z-[99] top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
       <ul className="hidden md:flex">
         {links.map(({ id, link, name }) => (
           <li
@@ -18,6 +19,11 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
           </li>
         ))}
       </ul>
+      <span
+        className={`absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl`}
+      >
+        <FaShoppingCart className={`text-white text-xl`} />
+      </span>
 
       <div
         onClick={() => setNav(!nav)}

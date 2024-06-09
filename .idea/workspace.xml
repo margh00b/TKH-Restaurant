@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="118038b7-7106-47b8-835d-fba9e09edcf7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/components/Button/button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/components/Cart/cart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/components/Cart/subcomponents/CartItems/cartItems.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tailwind-tools-updates.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Admin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Admin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Deals/deals.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Deals/deals.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Deals/subcomponents/dealItems/dealItems.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Deals/subcomponents/dealItems/dealItems.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Menu/subcomponents/MenuItems/menuItems.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Menu/subcomponents/MenuItems/menuItems.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Navbar/navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Navbar/navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2hAZb657QpJMggKhj4lrZcwPdFc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Program Files\\nodejs\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "C:\\Users\\margh\\IdeaProjects\\TKH-Restaurant\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="118038b7-7106-47b8-835d-fba9e09edcf7" name="Changes" comment="" />
+      <created>1717038919677</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717038919677</updated>
+      <workItem from="1717038931481" duration="771000" />
+      <workItem from="1717121958216" duration="354000" />
+      <workItem from="1717122354377" duration="91000" />
+      <workItem from="1717122456331" duration="11617000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

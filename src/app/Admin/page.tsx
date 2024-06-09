@@ -1,6 +1,6 @@
 const Admin = () => {
   return (
-    <div className="flex justify-center p-10">
+    <div className="flex justify-center p-10 mt-20">
       <form className="flex flex-col items-center p-10 border-2 border-gray-200 shadow-lg rounded-2xl">
         <input
           type="text"

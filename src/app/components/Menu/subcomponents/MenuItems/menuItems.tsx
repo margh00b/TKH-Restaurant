@@ -1,5 +1,6 @@
 import Image from "next/image";
 import menuItem from "./menuItems.interface";
+import Button from "@/app/components/Button/button";
 
 const MenuItems = ({ menuItem }: { menuItem: menuItem }) => {
   const { title, description, price, image } = menuItem;
@@ -18,6 +19,7 @@ const MenuItems = ({ menuItem }: { menuItem: menuItem }) => {
       </div>
       <div className="text-xl">
         <h1 className="">{price}</h1>
+          <Button btnText={`Add`}/>
       </div>
     </div>
   );
