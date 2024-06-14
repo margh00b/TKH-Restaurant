@@ -4,9 +4,15 @@ import LinkItem from "@/app/components/Navbar/navbarLinks.interface";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { toggleCart } from "@/redux/features/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import IconWithBadge from "../IconWithBadge";
 
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.items);
+
   return (
     <div className="fixed bg-white z-[99] top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
       <ul className="hidden md:flex">
@@ -21,8 +27,9 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
       </ul>
       <span
         className={`absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl`}
+        onClick={() => dispatch(toggleCart())}
       >
-        <FaShoppingCart className={`text-white text-xl`} />
+        <IconWithBadge icon={FaShoppingCart} badgeCount={cartItems.length} />
       </span>
 
       <div

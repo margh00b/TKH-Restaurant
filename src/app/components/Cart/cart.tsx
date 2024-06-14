@@ -1,6 +1,8 @@
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
+import { useAppSelector } from "@/redux/store";
 
 const Cart = () => {
+  const cartItems = useAppSelector((state) => state.cart.items);
   return (
     <div
       className={`shadow-lg z-50 flex flex-col h-[89vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-[30%]`}
@@ -18,12 +20,12 @@ const Cart = () => {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-      <CartItems />
-      <CartItems />
-      <CartItems />
-      <CartItems />
-      <CartItems />
-      <CartItems />
+      {
+        cartItems.map((item) => <CartItems key={item.id} item={item} />)
+      }
+      {
+        cartItems.length === 0 && <h1 className={`text-center pt-5`}>Cart is empty</h1>
+      }
     </div>
   );
 };
