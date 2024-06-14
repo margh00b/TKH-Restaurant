@@ -12,12 +12,6 @@ let initialState: ICartState = {
   items: []
 };
 
-
-// const savedCart = typeof window === 'undefined' ? null : localStorage.getItem('cart');
-// if (savedCart) {
-//   initialState = JSON.parse(savedCart);
-// }
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState,

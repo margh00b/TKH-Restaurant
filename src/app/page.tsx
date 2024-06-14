@@ -11,9 +11,8 @@ import { initializeCart } from "@/redux/features/cartSlice";
 import { useEffect } from "react";
 
 export default function Home() {
-  const showCart = useAppSelector((state) => state.cart.show);
-
   const dispatch = useAppDispatch();
+  const showCart = useAppSelector((state) => state.cart.show);
 
   useEffect(() => {
     dispatch(initializeCart());
