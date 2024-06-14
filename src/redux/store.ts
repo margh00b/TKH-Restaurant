@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { menuCategoryReducer } from "./features/selectedMenuCategorySlice";
+import { cartReducer } from "./features/cartSlice";
 
 export const store = configureStore({
-  reducer: { menu: menuCategoryReducer },
+  reducer: { menu: menuCategoryReducer, cart: cartReducer},
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

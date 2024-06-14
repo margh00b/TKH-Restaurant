@@ -1,9 +1,13 @@
 import Image from "next/image";
 import menuItem from "./menuItems.interface";
 import Button from "@/app/components/Button/button";
+import { useAppDispatch } from "@/redux/store";
+import { addItemToCart } from "@/redux/features/cartSlice";
 
 const MenuItems = ({ menuItem }: { menuItem: menuItem }) => {
   const { title, description, price, image } = menuItem;
+  const dispatch = useAppDispatch();
+
   return (
     <div className="flex max-w-[600px] min-w-[555px] p-5 text-white ">
       <Image
@@ -19,7 +23,7 @@ const MenuItems = ({ menuItem }: { menuItem: menuItem }) => {
       </div>
       <div className="text-xl">
         <h1 className="">{price}</h1>
-          <Button btnText={`Add`}/>
+          <Button btnText={`Add`} onClick={()=> dispatch(addItemToCart(menuItem))}/>
       </div>
     </div>
   );
