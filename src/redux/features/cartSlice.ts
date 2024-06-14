@@ -7,10 +7,16 @@ export interface ICartState {
   items: menuItem[];
 }
 
-const initialState: ICartState = {
+let initialState: ICartState = {
   show: false,
   items: []
 };
+
+
+// const savedCart = typeof window === 'undefined' ? null : localStorage.getItem('cart');
+// if (savedCart) {
+//   initialState = JSON.parse(savedCart);
+// }
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -39,8 +45,21 @@ export const cartSlice = createSlice({
 			state.items[itemIndex].quantity = (state.items[itemIndex].quantity ?? 0) - 1;
 		}
 	},
+	setCart(state, action) {
+		if(action.payload.items && action.payload.show){
+			state.items = action.payload.items;
+			state.show = action.payload.show;
+		}
+	},
   },
 });
 
-export const { toggleCart, addItemToCart, removeItemFromCart } = cartSlice.actions;
+export const initializeCart = () => (dispatch : any) => {
+	const savedCart = localStorage.getItem('cart');
+	if(savedCart){
+		dispatch(setCart(JSON.parse(savedCart)));
+	}
+  };
+
+export const { toggleCart, addItemToCart, removeItemFromCart, setCart } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

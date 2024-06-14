@@ -6,10 +6,18 @@ import Footer from "@/app/components/Footer/footer";
 import Hero from "@/app/components/Hero/hero";
 import Reviews from "@/app/components/Reviews/reviews";
 import Cart from "@/app/components/Cart/cart";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { initializeCart } from "@/redux/features/cartSlice";
+import { useEffect } from "react";
 
 export default function Home() {
   const showCart = useAppSelector((state) => state.cart.show);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(initializeCart());
+  }, [dispatch]);
 
   return (
     <main>
