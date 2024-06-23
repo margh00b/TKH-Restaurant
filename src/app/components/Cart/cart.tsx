@@ -1,5 +1,6 @@
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
 import { useAppSelector } from "@/redux/store";
+import Button from "@/app/components/Button/button";
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -20,12 +21,15 @@ const Cart = () => {
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
-      {
-        cartItems.map((item) => <CartItems key={item.id} item={item} />)
-      }
-      {
-        cartItems.length === 0 && <h1 className={`text-center pt-5`}>Cart is empty</h1>
-      }
+      {cartItems.map((item) => (
+        <CartItems key={item.id} item={item} />
+      ))}
+      {cartItems.length === 0 && (
+        <h1 className={`text-center pt-5`}>Cart is empty</h1>
+      )}
+      <span className={`flex justify-center my-5`}>
+        <Button btnText={`Checkout`} />
+      </span>
     </div>
   );
 };
