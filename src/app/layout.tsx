@@ -5,6 +5,7 @@ import Navbar from "@/app/components/Navbar/navbar";
 import { navbarLinks } from "@/app/components/Navbar/navbarLinks";
 import { ReduxProvider } from "@/redux/provider";
 import { DM_Serif_Display } from "next/font/google";
+import { CartProvider } from "./components/CartProvider";
 const inter = Inter({ subsets: ["latin"] });
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dmSerifDisplay",
@@ -28,8 +29,10 @@ export default function RootLayout({
     >
       <body className={inter.className}>
         <ReduxProvider>
-          <Navbar links={navbarLinks} />
-          {children}
+          <CartProvider>
+            <Navbar links={navbarLinks} />
+            {children}
+          </CartProvider>
         </ReduxProvider>
       </body>
     </html>

@@ -2,11 +2,16 @@
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
 import { useAppSelector } from "@/redux/store";
 import Button from "@/app/components/Button/button";
-import { menuData } from "@/app/dummy/menu.dummy";
+import menuItem from "../components/Menu/subcomponents/MenuItems/menuItems.interface";
+import { useEffect, useMemo } from "react";
 
 const Checkout = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
-  const totalCost = menuData[1].price;
+  const totalCost = useMemo(() => 
+    `$${cartItems.reduce((total, item: any) => 
+      total +  parseFloat(item.price.replace('$', '')) * parseInt(item.quantity, 10), 0)}`,
+    [cartItems]
+  );
   return (
     <div className="flex justify-center p-10 mt-20">
       <div className={`flex flex-col top-20 bg-white p-4 w-2/3`}>
@@ -29,8 +34,6 @@ const Checkout = () => {
         {cartItems.length === 0 && (
           <h1 className={`text-center pt-5`}>Cart is empty</h1>
         )}
-        <CartItems item={menuData[1]} />
-        <CartItems item={menuData[2]} />
         <div className="flex justify-between px-4 py-2 mt-4 bg-gray-100">
           <span className="text-xl font-bold">Total:</span>
           <span className="text-xl font-bold">{totalCost}</span>

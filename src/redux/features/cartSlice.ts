@@ -1,5 +1,6 @@
 import menuItem from "@/app/components/Menu/subcomponents/MenuItems/menuItems.interface";
 import { createSlice } from "@reduxjs/toolkit";
+import { getCookie } from 'cookies-next';
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ICartState {
@@ -49,7 +50,7 @@ export const cartSlice = createSlice({
 });
 
 export const initializeCart = () => (dispatch : any) => {
-	const savedCart = localStorage.getItem('cart');
+	const savedCart = getCookie('cart');
 	if(savedCart){
 		dispatch(setCart(JSON.parse(savedCart)));
 	}

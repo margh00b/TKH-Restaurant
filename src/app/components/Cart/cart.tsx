@@ -1,9 +1,14 @@
+'use client';
+
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
 import { useAppSelector } from "@/redux/store";
 import Button from "@/app/components/Button/button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
+  const router = useRouter();
   return (
     <div
       className={`shadow-lg z-50 flex flex-col h-[89vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-[30%]`}
@@ -28,7 +33,9 @@ const Cart = () => {
         <h1 className={`text-center pt-5`}>Cart is empty</h1>
       )}
       <span className={`flex justify-center my-5`}>
-        <Button btnText={`Checkout`} />
+        <Link href="/checkout">
+          <Button btnText={`Checkout`} />
+        </Link>
       </span>
     </div>
   );
