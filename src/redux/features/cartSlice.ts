@@ -44,6 +44,9 @@ export const cartSlice = createSlice({
 		if(action.payload.items && action.payload.show){
 			state.items = action.payload.items;
 			state.show = action.payload.show;
+		} else {
+			state.items = [];
+			state.show = false;
 		}
 	},
   },
