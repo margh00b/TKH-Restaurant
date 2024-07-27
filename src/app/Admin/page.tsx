@@ -70,7 +70,7 @@ const Admin = () => {
 					</button>
 				</form>
 			</div>
-			{!!error.length && (
+			{!!error &&!!error.length && (
 				<div className="flex justify-center mt-5">
 					<p className="text-red-500">{error}</p>
 				</div>
