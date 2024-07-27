@@ -1,17 +1,55 @@
-"use client";
+'use client';
+
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import Button from "@/app/components/Button/button";
-import menuItem from "../components/Menu/subcomponents/MenuItems/menuItems.interface";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import { setCart } from "@/redux/features/cartSlice";
+import { useRouter } from "next/navigation";
 
 const Checkout = () => {
+  const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
+  const dispatch = useAppDispatch();
   const totalCost = useMemo(() => 
     `$${cartItems.reduce((total, item: any) => 
       total +  parseFloat(item.price.replace('$', '')) * parseInt(item.quantity, 10), 0)}`,
     [cartItems]
   );
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const handlePlaceOrder = async () => {
+    
+    await axios.post("/checkout/api", {
+      cart: cartItems,
+      name,
+      phone,
+      email,
+    });
+
+    dispatch(setCart({ items: [], show: false }));
+
+    setName("");
+    setPhone("");
+    setEmail("");
+
+    alert("Order placed");
+    router.push("/");
+  }
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className="flex justify-center p-10 mt-20">
       <div className={`flex flex-col top-20 bg-white p-4 w-2/3`}>
@@ -44,6 +82,8 @@ const Checkout = () => {
             name="fullname"
             placeholder="Full Name"
             className="border-b-2 p-2 outline-0"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
           <input
@@ -51,6 +91,8 @@ const Checkout = () => {
             name="phone"
             placeholder="Phone Number"
             className="border-b-2 p-2 outline-0"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
           />
           <input
@@ -58,14 +100,17 @@ const Checkout = () => {
             name="email"
             placeholder="Email"
             className="border-b-2 p-2 outline-0"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </form>
-        <span className={`flex justify-center my-2`}>
+        <span className={`flex justify-center my-2`} onClick={handlePlaceOrder}>
           <Button btnText={`Place Order`} />
         </span>
       </div>
     </div>
   );
 };
+
 export default Checkout;
