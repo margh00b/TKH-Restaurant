@@ -58,7 +58,7 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders.map((order : any) => (
               <React.Fragment key={order.orderNo}>
                 <tr>
                   <td className="py-2 px-4 border-b border-gray-200">
@@ -101,7 +101,7 @@ const Orders = () => {
                   <tr>
                     <td colSpan={7} className="border-b border-gray-200">
                       <div className="p-5 bg-gray-800 text-white transition-opacity duration-500">
-                        {order.items.map((item, index) => (
+                        {order.items.map((item: any, index: any) => (
                           <div key={index} className="flex mb-3">
                             <Image
                               src={item.image}

@@ -9,7 +9,7 @@ const Hero = () => {
         <p className="text-lg mt-10 bg-[#ffffffc9]">
           At Tandoori Kabab Hut, we specialize in delicious kababs, curries,
           roti, and much more. Using authentic flavours and traditional recipes,
-          Tandoori Kabab Hut packs the flavour in every bite. If you're in the
+          Tandoori Kabab Hut packs the flavour in every bite. If you&aposre in the
           Calgary area and are craving a new bite to eat, try ordering today!
         </p>
       </div>
