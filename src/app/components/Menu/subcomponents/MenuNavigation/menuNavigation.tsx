@@ -25,7 +25,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
                 selectedCategory === category ? "text-orange-500" : ""
               }`}
             >
-              {category}
+              {category.replace("_", " ")}
             </li>
 
             <span className=" ">{index < categories.length - 1 && " | "}</span>

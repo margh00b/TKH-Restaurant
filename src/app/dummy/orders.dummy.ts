@@ -12,7 +12,7 @@ export const ordersData = [
         title: "Chicken Korma",
         description:
           "Chicken marinated in yogurt, lemon juice, and plenty of spices, then grilled to perfection.",
-        category: "MAIN COURSE",
+        category: "MAIN_COURSE",
         price: "$14.99",
         image: "/ChickenKorma.png",
       },
@@ -21,7 +21,7 @@ export const ordersData = [
         title: "Nihari",
         description:
           "Special cut beef with house spices, garlic, ginger. A traditional curry that is Cooked on slow heat.",
-        category: "MAIN COURSE",
+        category: "MAIN_COURSE",
         price: "$13.99",
         image: "/ChickenKorma.png",
       },
@@ -39,7 +39,7 @@ export const ordersData = [
       title: "Nihari",
       description:
         "Special cut beef with house spices, garlic, ginger. A traditional curry that is Cooked on slow heat.",
-      category: "MAIN COURSE",
+      category: "MAIN_COURSE",
       price: "$13.99",
       image: "/ChickenKorma.png",
     },

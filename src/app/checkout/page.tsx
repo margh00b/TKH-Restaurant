@@ -12,9 +12,9 @@ const Checkout = () => {
   const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
-  const totalCost = useMemo(() => 
-    `$${cartItems.reduce((total, item: any) => 
-      total +  parseFloat(item.price.replace('$', '')) * parseInt(item.quantity, 10), 0)}`,
+  const totalCost = useMemo(() =>
+    `$${cartItems.reduce((total, item: any) =>
+      total +  parseFloat(item.price) * parseInt(item.quantity, 10), 0)}`,
     [cartItems]
   );
 

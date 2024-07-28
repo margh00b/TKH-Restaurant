@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { menuCategoryReducer } from "./features/selectedMenuCategorySlice";
 import { cartReducer } from "./features/cartSlice";
+import { menuItemReducer } from "./features/menuSlice";
 import localStorageMiddleware from './middlewares/localStorage';
+import { ordersReducer } from "./features/orderSlice";
 
 export const store = configureStore({
-  reducer: { menu: menuCategoryReducer, cart: cartReducer },
+  reducer: { menu: menuCategoryReducer, cart: cartReducer, menuItems: menuItemReducer, orders: ordersReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(localStorageMiddleware),
 });

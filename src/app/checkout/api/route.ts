@@ -15,9 +15,9 @@ export async function POST(request: any) {
 		data: {
 			items: {
 				create: cart.map((item: any) => ({
-					itemId: parseInt(item.id),
+					menuItemId: parseInt(item.id),
 					quantity: parseInt(item.quantity),
-					price: parseFloat(item.price.replace("$", "")),
+					price: parseFloat(item.price),
 				}))
 			},
 			name,

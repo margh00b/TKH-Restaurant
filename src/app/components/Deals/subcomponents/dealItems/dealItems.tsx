@@ -23,7 +23,7 @@ const DealItems = ({ menuItem }: { menuItem: menuItem }) => {
                     Lamb stew with Rice & Naan
                 </p>
                 <div className="flex justify-between items-center">
-                    <span className="text-gray-700">{price}</span>
+                    <span className="text-gray-700">${price}</span>
                         <Button btnText={`Add to cart`} onClick={()=>{dispatch(addItemToCart(menuItem))}}/>
                 </div>
             </div>

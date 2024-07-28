@@ -1,12 +1,13 @@
 "use client";
 import DealItems from "@/app/components/Deals/subcomponents/dealItems/dealItems";
-import { menuData } from "@/app/dummy/menu.dummy";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./deals.css";
+import { useAppSelector } from "@/redux/store";
 
 const Deals = () => {
+  const menuData = useAppSelector((state) => state.menuItems.items);
   const settings = {
     dots: true,
     infinite: true,
@@ -39,7 +40,7 @@ const Deals = () => {
         <h1 className="text-3xl  text-center my-10">Today&aposs Deals</h1>
         <Slider {...settings}>
           {menuData
-            .filter((menuItem) => menuItem.category === "MAIN COURSE")
+            .filter((menuItem) => menuItem.category === "MAIN_COURSE")
             .map((menuItem) => (
               <DealItems key={menuItem.id} menuItem={menuItem} />
             ))}
