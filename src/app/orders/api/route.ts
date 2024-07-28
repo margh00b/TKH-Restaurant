@@ -42,16 +42,16 @@ export async function PUT(request: any) {
 		throw new Error("Invalid request");
 	}
 
+	if(status) {
+		data = {
+			status,
+		};
+	}
+
 	if(makeTime && status === "ACCEPTED") {
 		data = {
 			status,
 			makeTime,
-		};
-	}
-
-	if(status) {
-		data = {
-			status,
 		};
 	}
 
