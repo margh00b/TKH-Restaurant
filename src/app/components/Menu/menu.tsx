@@ -1,11 +1,11 @@
 "use client";
 import MenuItems from "@/app/components/Menu/subcomponents/MenuItems/menuItems";
-import { menuData } from "@/app/dummy/menu.dummy";
 import MenuNav from "@/app/components/Menu/subcomponents/MenuNavigation/menuNavigation";
 import { menuCategoryData } from "@/app/dummy/menuCategories.dummy";
 import { useAppSelector } from "@/redux/store";
 const Menu = () => {
   const categoryState = useAppSelector((state) => state.menu.menuCategoryState);
+  const menuData = useAppSelector((state) => state.menuItems.items);
   return (
     <div className="m-10">
       <h1 className="text-center text-4xl mb-5">Our Menu</h1>

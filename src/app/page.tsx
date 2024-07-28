@@ -6,11 +6,13 @@ import Footer from "@/app/components/Footer/footer";
 import Hero from "@/app/components/Hero/hero";
 import Reviews from "@/app/components/Reviews/reviews";
 import Cart from "@/app/components/Cart/cart";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
+import { getMenuItems } from "@/redux/features/menuSlice";
 
 export default function Home() {
   const showCart = useAppSelector((state) => state.cart.show);
+  const dispatch = useAppDispatch();
   const [initialRender, setInitialRender] = useState(true);
 
   useEffect(() => {
@@ -18,6 +20,10 @@ export default function Home() {
       setInitialRender(false);
     }
   }, [initialRender]);
+
+  useEffect(()=>{
+    dispatch(getMenuItems())
+  }, []);
 
   return (
     !initialRender && <main>

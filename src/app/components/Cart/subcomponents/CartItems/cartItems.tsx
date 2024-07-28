@@ -20,7 +20,7 @@ const CartItems = ({item}: ICartItemProps) => {
         />
         <div className="flex flex-col max-w-[300px] mx-2">
           <h1 className="text-lg">{item.title}</h1>
-          <h1 className="">{item.price}</h1>
+          <h1 className="">${item.price}</h1>
         </div>
       </div>
       <div className={`flex items-center`}>

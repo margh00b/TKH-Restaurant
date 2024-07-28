@@ -22,7 +22,7 @@ const MenuItems = ({ menuItem }: { menuItem: menuItem }) => {
         <p className="text-[#adadad] hidden md:block">{description}</p>
       </div>
       <div className="text-xl">
-        <h1 className="">{price}</h1>
+        <h1 className="">${price}</h1>
           <Button btnText={`Add`} onClick={()=> dispatch(addItemToCart(menuItem))}/>
       </div>
     </div>
