@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import CartItems from "@/app/components/Cart/subcomponents/CartItems/cartItems";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -12,10 +12,14 @@ const Checkout = () => {
   const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart.items);
   const dispatch = useAppDispatch();
-  const totalCost = useMemo(() =>
-    `$${cartItems.reduce((total, item: any) =>
-      total +  parseFloat(item.price) * parseInt(item.quantity, 10), 0)}`,
-    [cartItems]
+  const totalCost = useMemo(
+    () =>
+      `$${cartItems.reduce(
+        (total, item: any) =>
+          total + parseFloat(item.price) * parseInt(item.quantity, 10),
+        0,
+      )}`,
+    [cartItems],
   );
 
   const [name, setName] = useState("");
@@ -28,7 +32,6 @@ const Checkout = () => {
   }, []);
 
   const handlePlaceOrder = async () => {
-    
     await axios.post("/checkout/api", {
       cart: cartItems,
       name,
@@ -43,8 +46,8 @@ const Checkout = () => {
     setEmail("");
 
     alert("Order placed");
-    router.push("/");
-  }
+    router.push("/confirmation");
+  };
 
   if (!isMounted) {
     return null;

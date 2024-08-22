@@ -1,10 +1,9 @@
 .hero {
-  background-image: radial-gradient(#ffa967 1.6px, transparent 1.6px),
-    radial-gradient(#ffa967 1.6px, transparent 1.6px);
-  background-position:
-    0 0,
-    32px 32px;
-  background-size: 64px 64px;
+  background: linear-gradient(
+    90deg,
+    rgba(68, 28, 4, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }
 .magicpattern {
   background-size: cover;

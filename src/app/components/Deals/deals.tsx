@@ -37,7 +37,7 @@ const Deals = () => {
   return (
     <div className="flex justify-center my-5">
       <div className="w-[80%]">
-        <h1 className="text-3xl  text-center my-10">Today&aposs Deals</h1>
+        <h1 className="text-3xl  text-center my-10">Today&apos;s Deals</h1>
         <Slider {...settings}>
           {menuData
             .filter((menuItem) => menuItem.category === "MAIN_COURSE")
