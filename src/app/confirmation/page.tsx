@@ -1,18 +1,42 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/redux/store";
 import Button from "@/app/components/Button/button";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo } from "react";
-import OrderItem from "@/app/components/OrderItem";
-import { getOrders } from "@/redux/features/orderSlice";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 const OrderConfirmation = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+  const [order, setOrder] = useState<any>(null);
 
   const handleReturn = () => {
     router.push("/");
   };
+
+  const getOrder = useCallback(async () => {
+		try {
+			const {data: order} = await axios.get(`/orders/api?orderId=${orderId}`);
+			setOrder(order);
+      console.log(order);
+		} catch (error) {
+			console.error("Failed to fetch order:", error);
+		}
+  }, [orderId]);
+
+  const totalCost = useMemo(() => {
+    if (!order) return `$0.00`;
+    return `$${order.items.reduce((total: number, item: any) => total + item.price * item.quantity, 0).toFixed(2)}`;
+  }, [order]);
+
+
+  useEffect(() => {
+		if (!orderId) {
+			router.push("/");
+		}
+		getOrder();
+  }, [orderId, router, getOrder]);
 
   return (
     <div className="flex justify-center p-10 mt-20">
@@ -35,15 +59,13 @@ const OrderConfirmation = () => {
         ></iframe>
         <div className="mt-8">
           <h2 className="text-2xl font-bold">Order Summary</h2>
-          {/*Display order items like this pleasseeeee
-          item      x(quantity)
-          item      x(quantity)
-          item      x(quantity)
-
-          Total: {totalCost}
-          */}
+          {order?.items.map((item: any) => <div key={item.id}>
+            <span>Title: {item.title} </span>
+            <span> - Quantati: {item.quantity}</span>
+            <span> - Unit Price: {item.price}</span>
+          </div>)}
           <div className="flex justify-between px-4 py-2 mt-4 bg-gray-100">
-            <span className="text-xl font-bold">Total:</span>
+            <span className="text-xl font-bold">Total: {totalCost}</span>
           </div>
         </div>
         <div className="flex justify-center my-6">

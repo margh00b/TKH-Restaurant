@@ -32,7 +32,7 @@ const Checkout = () => {
   }, []);
 
   const handlePlaceOrder = async () => {
-    await axios.post("/checkout/api", {
+    const {data: {order}} = await axios.post("/checkout/api", {
       cart: cartItems,
       name,
       phone,
@@ -45,8 +45,7 @@ const Checkout = () => {
     setPhone("");
     setEmail("");
 
-    alert("Order placed");
-    router.push("/confirmation");
+    router.push("/confirmation?orderId=" + order.id);
   };
 
   if (!isMounted) {

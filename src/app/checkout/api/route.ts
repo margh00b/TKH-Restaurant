@@ -11,7 +11,7 @@ export async function POST(request: any) {
 		);
 	}
 
-	await prisma.order.create({
+	const order = await prisma.order.create({
 		data: {
 			items: {
 				create: cart.map((item: any) => ({
@@ -27,7 +27,7 @@ export async function POST(request: any) {
 	});
 
 	return NextResponse.json(
-		{ message: "Order placed" },
+		{ message: "Order placed", order },
 		{ status: 200 }
 	);
 }
