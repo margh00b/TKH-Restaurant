@@ -6,6 +6,7 @@ import { navbarLinks } from "@/app/components/Navbar/navbarLinks";
 import { ReduxProvider } from "@/redux/provider";
 import { DM_Serif_Display } from "next/font/google";
 import { CartProvider } from "./components/CartProvider";
+import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dmSerifDisplay",
@@ -31,8 +32,10 @@ export default function RootLayout({
         <ReduxProvider>
           <CartProvider>
             <Navbar links={navbarLinks} />
-            {children}
-          </CartProvider>
+              <Suspense fallback={<div>Loading</div>}>
+                {children}
+              </Suspense>
+            </CartProvider>
         </ReduxProvider>
       </body>
     </html>
