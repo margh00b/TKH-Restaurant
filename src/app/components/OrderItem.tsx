@@ -1,4 +1,3 @@
-// OrderItem.tsx
 import { updateOrder, getOrders } from "@/redux/features/orderSlice";
 import { useAppDispatch } from "@/redux/store";
 import Image from "next/image";
@@ -36,86 +35,99 @@ const OrderItem: React.FC<OrderItemProps> = ({
   return (
     <React.Fragment key={order.id}>
       <tr>
-        <td className="py-2 px-4 border-b border-gray-200">{order.id}</td>
-        <td className="py-2 px-4 border-b border-gray-200">{order.name}</td>
-        <td className="py-2 px-4 border-b border-gray-200">{order.phone}</td>
-        <td className="py-2 px-4 border-b border-gray-200">{order.email}</td>
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
+          {order.id}
+        </td>
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
+          {order.name}
+        </td>
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
+          {order.phone}
+        </td>
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
+          {order.email}
+        </td>
         <td
-          className={`py-2 px-4 border-b border-gray-200 ${
+          className={`py-2 px-4 border-b border-gray-200 text-sm ${
             order.status === "PENDING" ? "text-yellow-600" : "text-green-600"
           }`}
         >
-          {order.status}
+          {order.status.replace("_", " ").toLowerCase()}
         </td>
-        <td className="py-2 px-4 border-b border-gray-200">
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
           {order.created_at}
         </td>
-        <td className="py-2 px-4 border-b border-gray-200">
-          <button
-            className="text-blue-600 hover:underline"
-            onClick={() => toggleVisibility(order.id)}
-          >
-            View
-          </button>
-          {order.status !== "PICKED_UP" && (
+        <td className="py-2 px-4 border-b border-gray-200 text-sm">
+          <div className="flex flex-wrap gap-2">
             <button
-              className="text-red-600 hover:underline ml-2"
-              onClick={handleCancelOrder}
+              className="text-blue-600 hover:underline text-xs sm:text-sm px-3 py-2 border border-blue-600 rounded"
+              onClick={() => toggleVisibility(order.id)}
             >
-              Cancel
+              View
             </button>
-          )}
-          {order.status === "ACCEPTED" && (
-            <button
-              className="text-green-900 hover:underline ml-2"
-              onClick={handleDeliveredOrder}
-            >
-              Delivered
-            </button>
-          )}
+            {order.status !== "PICKED_UP" && (
+              <button
+                className="text-red-600 hover:underline text-xs sm:text-sm px-3 py-2 border border-red-600 rounded"
+                onClick={handleCancelOrder}
+              >
+                Cancel
+              </button>
+            )}
+            {order.status === "ACCEPTED" && (
+              <button
+                className="text-green-900 hover:underline text-xs sm:text-sm px-3 py-2 border border-green-900 rounded"
+                onClick={handleDeliveredOrder}
+              >
+                Delivered
+              </button>
+            )}
+          </div>
         </td>
       </tr>
       {visibleOrder === order.id && (
         <tr>
           <td colSpan={7} className="border-b border-gray-200">
-            <div className="p-5 bg-gray-800 text-white transition-opacity duration-500">
+            <div className="p-3 bg-gray-800 text-white">
               {order.items.map((item: any, index: any) => (
-                <div key={index} className="flex mb-3">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={70}
-                    height={70}
-                    className="object-contain h-[100%]"
-                  />
-                  <div className="flex flex-col justify-center min-w-[300px] mx-5">
-                    <h1 className="text-xl">{item.title}</h1>
+                <div
+                  key={index}
+                  className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-2"
+                >
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={70}
+                      height={70}
+                      className="object-contain w-16 h-16 sm:w-20 sm:h-20"
+                    />
+                  </div>
+                  <div className="flex-grow text-sm">
+                    <h1 className="font-semibold text-base">{item.title}</h1>
                     <p className="text-gray-400">{item.description}</p>
-                    <p className="text-lg mt-2">${item.price}</p>
-                    <p className="text-lg mt-2">Quantity: {item.quantity}</p>
+                    <p>${item.price}</p>
+                    <p>Quantity: {item.quantity}</p>
                   </div>
                 </div>
               ))}
               {order.status === "ACCEPTED" && (
-                <p className="text-lg mt-2">
+                <p className="mt-2 text-sm">
                   Making Time: {order.makeTime} minutes
                 </p>
               )}
               {order.status === "PENDING" && (
-                <div className="mt-5">
-                  <label className="block text-gray-400 mb-2">
+                <div className="mt-2 flex flex-col sm:flex-row items-center gap-2">
+                  <label className="block text-gray-400 text-sm mb-1">
                     Making Time (minutes):
                   </label>
                   <input
                     type="number"
                     value={makeTime}
-                    onChange={(e) => {
-                      setMakingTime(e.target.value);
-                    }}
-                    className="p-2 rounded bg-gray-700 text-white"
+                    onChange={(e) => setMakingTime(e.target.value)}
+                    className="p-2 rounded bg-gray-700 text-white text-sm"
                   />
                   <button
-                    className="ml-4 p-2 bg-green-600 rounded text-white"
+                    className="p-2 bg-green-600 rounded text-white text-sm mt-2 sm:mt-0"
                     onClick={handleAcceptOrder}
                   >
                     Accept Order
@@ -123,10 +135,10 @@ const OrderItem: React.FC<OrderItemProps> = ({
                 </div>
               )}
               {order.status === "CANCELLED" && (
-                <p className="text-lg mt-2">Order Cancelled</p>
+                <p className="mt-2 text-sm">Order Cancelled</p>
               )}
               {order.status === "PICKED_UP" && (
-                <p className="text-lg mt-2">Order Delivered</p>
+                <p className="mt-2 text-sm">Order Delivered</p>
               )}
             </div>
           </td>

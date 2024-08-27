@@ -16,38 +16,38 @@ const OrderConfirmation = () => {
   };
 
   const getOrder = useCallback(async () => {
-		try {
-			const {data: order} = await axios.get(`/orders/api?orderId=${orderId}`);
-			setOrder(order);
+    try {
+      const { data: order } = await axios.get(`/orders/api?orderId=${orderId}`);
+      setOrder(order);
       console.log(order);
-		} catch (error) {
-			console.error("Failed to fetch order:", error);
-		}
+    } catch (error) {
+      console.error("Failed to fetch order:", error);
+    }
   }, [orderId]);
 
   const totalCost = useMemo(() => {
-    if (!order) return `$0.00`;
+    if (!order || !order.items) return `$0.00`;
     return `$${order.items.reduce((total: number, item: any) => total + item.price * item.quantity, 0).toFixed(2)}`;
   }, [order]);
 
-
   useEffect(() => {
-		if (!orderId) {
-			router.push("/");
-		}
-		getOrder();
+    if (!orderId) {
+      router.push("/");
+    } else {
+      getOrder();
+    }
   }, [orderId, router, getOrder]);
 
   return (
     <div className="flex justify-center p-10 mt-20">
-      <div className={`flex flex-col top-20 bg-white p-4 w-2/3`}>
-        <div className={`text-center`}>
+      <div className="flex flex-col top-20 bg-white p-4 w-2/3">
+        <div className="text-center">
           <h1 className="text-3xl font-bold">Order Confirmation</h1>
-          <p className={`mx-10 my-5 text-lg`}>
-            Thank you for your order! Your order has been successfully placed
+          <p className="mx-10 my-5 text-lg">
+            Thank you for your order! Your order has been successfully placed.
           </p>
           <p className="mb-5 text-2xl text-orange-500">
-            You will receive an email confirmation shortly
+            You will receive an email confirmation shortly.
           </p>
         </div>
         <iframe
@@ -58,16 +58,40 @@ const OrderConfirmation = () => {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
         <div className="mt-8">
-          <h2 className="text-2xl font-bold">Order Summary</h2>
-          {order?.items.map((item: any) => <div key={item.id}>
-            <span>Title: {item.title} </span>
-            <span> - Quantati: {item.quantity}</span>
-            <span> - Unit Price: {item.price}</span>
-          </div>)}
-          <div className="flex justify-between px-4 py-2 mt-4 bg-gray-100">
-            <span className="text-xl font-bold">Total: {totalCost}</span>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            Order Summary
+          </h2>
+          <div className="space-y-4">
+            {order?.items?.map((item: any) => (
+              <div
+                key={item.id}
+                className="flex justify-between items-center p-4 border border-gray-200 rounded-lg shadow-sm"
+              >
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-700">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Quantity: {item.quantity}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-500">
+                    Unit Price: ${item.price.toFixed(2)}
+                  </p>
+                  <p className="text-lg font-bold text-gray-800">
+                    Total: ${(item.price * item.quantity).toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between px-4 py-4 mt-8 bg-gray-100 rounded-lg shadow-md">
+            <span className="text-xl font-bold text-gray-800">Total Cost:</span>
+            <span className="text-xl font-bold">{totalCost}</span>
           </div>
         </div>
+
         <div className="flex justify-center my-6">
           <Button btnText="Return to Homepage" onClick={handleReturn} />
         </div>
