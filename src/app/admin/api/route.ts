@@ -10,7 +10,7 @@ export async function POST(request: any) {
 			username,
 		},
 	});
-
+	
 	if (user) {
 		const isVerified = await compare(password, user.password);
 		if (isVerified) {

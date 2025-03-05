@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,6 +5,54 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  name     String?
+  password String
+  role     Role    @default(ADMIN)
+}
+
+model Order {
+  id         Int          @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String
+  status     ORDER_STATUS @default(PENDING)
+  makeTime   String?
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  menuItemId Int
+  quantity   Int
+  price      Float
+  orderId    Int
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  order      Order    @relation(fields: [orderId], references: [id])
+}
+
+model MenuItem {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String
+  category    Category
+  price       Float
+  image       String
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  OrderItem   OrderItem[]
+}
+
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
 }
 
 enum Role {
@@ -20,51 +67,9 @@ enum ORDER_STATUS {
   CANCELLED
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  username String  @unique
-  name  String?
-  password String
-  role Role    @default(ADMIN)
-}
-
-model Order {
-  id Int @id @default(autoincrement())
-  name String
-  email String
-  phone String
-  status ORDER_STATUS @default(PENDING)
-  makeTime String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  items OrderItem[]
-}
-
-model OrderItem {
-  id Int @id @default(autoincrement())
-  menuItemId Int
-  quantity Int
-  price Float
-  orderId Int
-  order Order @relation(fields: [orderId], references: [id])
-  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
-}
-
 enum Category {
   STARTERS
   MAIN_COURSE
   DESSERTS
   DRINKS
-}
-
-model MenuItem {
-  id Int @id @default(autoincrement())
-  title String
-  description String
-  category Category
-  price Float
-  image String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  OrderItem OrderItem[]
 }

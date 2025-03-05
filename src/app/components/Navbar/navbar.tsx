@@ -12,6 +12,8 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
+  const totalCartItems = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+
 
   return (
     <div className="fixed bg-white z-[99] top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
@@ -29,7 +31,7 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
         className={`absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl`}
         onClick={() => dispatch(toggleCart())}
       >
-        <IconWithBadge icon={FaShoppingCart} badgeCount={cartItems.length} />
+        <IconWithBadge icon={FaShoppingCart} badgeCount={totalCartItems} />
       </span>
 
       <div
