@@ -1,4 +1,4 @@
-import menuItem from "@/app/components/Menu/subcomponents/MenuItems/menuItems.interface";
+import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
 
 export const menuData: menuItem[] = [
   {

@@ -1,5 +1,5 @@
-import menuItem from "@/app/components/Menu/subcomponents/MenuItems/menuItems.interface";
-import reviewItem from "@/app/components/Reviews/subcomponents/ReviewItem/reviewItems.interface";
+import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
+import reviewItem from "@/components/Reviews/subcomponents/ReviewItem/reviewItems.interface";
 
 export const reviewData: reviewItem[] = [
   {
