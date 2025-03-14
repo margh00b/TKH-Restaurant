@@ -11,14 +11,14 @@ let initialState: IOrderState = {
 };
 
 export const getOrders = createAsyncThunk("orders/getOrders", async () => {
-  const response = await fetch("/orders/api");
+  const response = await fetch("/restaurant/orders/api");
   return response.json();
 });
 
 export const updateOrder = createAsyncThunk(
   "orders/acceptOrder",
   async ({ id, makeTime, status }: any) => {
-    const response = await fetch(`/orders/api`, {
+    const response = await fetch(`/restaurant/orders/api`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

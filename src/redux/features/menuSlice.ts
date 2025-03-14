@@ -1,4 +1,4 @@
-import menuItem from "@/app/components/Menu/subcomponents/MenuItems/menuItems.interface";
+import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -14,7 +14,8 @@ let initialState: IMenuState = {
 };
 
 export const getMenuItems = createAsyncThunk("menuItems/getMenuItems", async () => {
-	const response = await fetch("/menu/api");
+	const response = await fetch("/customer/menu/api");
+	console.log("menu: ", response);
 	return response.json();
 });
 

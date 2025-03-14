@@ -1,4 +1,4 @@
-import menuItem from "@/app/components/Menu/subcomponents/MenuItems/menuItems.interface";
+import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from 'cookies-next';
 import type { PayloadAction } from "@reduxjs/toolkit";

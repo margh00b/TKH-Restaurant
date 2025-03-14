@@ -4,7 +4,7 @@ export const middleware = async(req: NextRequest) => {
 	const token = req.cookies.get("token")?.value;
 	console.log(req.url, !token);
 	if (req.url.includes("/orders") && !token) {
-		const response = NextResponse.redirect(new URL('/admin', req.url));
+		const response = NextResponse.redirect(new URL('restaurant/admin', req.url));
 
 		return response;
 	}
