@@ -5,9 +5,10 @@ import { cartReducer } from "./features/cartSlice";
 import { menuItemReducer } from "./features/menuSlice";
 import localStorageMiddleware from './middlewares/localStorage';
 import { ordersReducer } from "./features/orderSlice";
+import { orderCategoryReducer } from "./features/selectedOrderCategorySlice";
 
 export const store = configureStore({
-  reducer: { menu: menuCategoryReducer, cart: cartReducer, menuItems: menuItemReducer, orders: ordersReducer },
+  reducer: { menu: menuCategoryReducer, cart: cartReducer, menuItems: menuItemReducer, orders: ordersReducer, orderCategory: orderCategoryReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(localStorageMiddleware),
 });

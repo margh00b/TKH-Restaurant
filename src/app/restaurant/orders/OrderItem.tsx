@@ -1,11 +1,10 @@
 import { updateOrder, getOrders } from "@/redux/features/orderSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import Image from "next/image";
+
 import React, { useEffect, useMemo, useState } from "react";
 import { IoTime } from "react-icons/io5";
 import { FaBowlFood } from "react-icons/fa6";
 import { FaUtensils } from "react-icons/fa";
-import Button from "@/components/Button/button";
 
 const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
   const dispatch = useAppDispatch();
