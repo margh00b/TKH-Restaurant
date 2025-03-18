@@ -2,102 +2,99 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 
 export async function GET(request: any) {
-	const { searchParams } = request.nextUrl
-    const { orderId } = Object.fromEntries(searchParams.entries())
+  const { searchParams } = request.nextUrl;
+  const { orderId } = Object.fromEntries(searchParams.entries());
 
-	if(orderId) {
-		const order = await prisma.order.findUnique({
-			where: {
-				id: parseInt(orderId),
-			},
-			include: {
-				items: true,
-			},
-		});
+  if (orderId) {
+    const order = await prisma.order.findUnique({
+      where: {
+        id: parseInt(orderId),
+      },
+      include: {
+        items: true,
+      },
+    });
 
-		if(!order) {
-			return NextResponse.json(
-				{ message: "Order not found" },
-				{ status: 404 }
-			);
-		}
+    if (!order) {
+      return NextResponse.json({ message: "Order not found" }, { status: 404 });
+    }
 
-		const itemPromises = order.items.map(async (item, index) => {
-			const menuItem = await prisma.menuItem.findUnique({
-				where: {
-					id: item.menuItemId,
-				},
-			});
-			order.items[index] = {
-				...item,
-				...menuItem,
-			};
-		});
+    const itemPromises = order.items.map(async (item, index) => {
+      const menuItem = await prisma.menuItem.findUnique({
+        where: {
+          id: item.menuItemId,
+        },
+      });
+      order.items[index] = {
+        ...item,
+        ...menuItem,
+      };
+    });
 
-		await Promise.all(itemPromises);
+    await Promise.all(itemPromises);
 
-		return NextResponse.json(order);
-	}
+    return NextResponse.json(order);
+  }
 
-	const orders = await prisma.order.findMany({
-		include: {
-			items: true,
-		},
-	});
+  const orders = await prisma.order.findMany({
+    include: {
+      items: true,
+    },
+  });
 
-	const promises = orders.map(async (order) => {
-		const itemPromises = order.items.map(async (item, index) => {
-			const menuItem = await prisma.menuItem.findUnique({
-				where: {
-					id: item.menuItemId,
-				},
-			});
-			order.items[index] = {
-				...item,
-				...menuItem,
-			};
-		});
-		await Promise.all(itemPromises);
-		return order;
-	});
+  const promises = orders.map(async (order) => {
+    const itemPromises = order.items.map(async (item, index) => {
+      const menuItem = await prisma.menuItem.findUnique({
+        where: {
+          id: item.menuItemId,
+        },
+      });
+      order.items[index] = {
+        ...item,
+        ...menuItem,
+      };
+    });
+    await Promise.all(itemPromises);
+    return order;
+  });
 
-	await Promise.all(promises);
+  await Promise.all(promises);
 
-	return NextResponse.json(orders);
+  return NextResponse.json(orders);
 }
 
 export async function PUT(request: any) {
-	const { id, makeTime, status } = await request.json();
+  const { id, makeTime, status } = await request.json();
 
-	let data = {};
+  let data = {};
 
-	if(!makeTime && !status) {
-		throw new Error("Invalid request");
-	}
+  if (!makeTime && !status) {
+    throw new Error("Invalid request");
+  }
 
-	if(makeTime && !(status === "ACCEPTED")) {
-		throw new Error("Invalid request");
-	}
+  if (makeTime && !(status === "ACCEPTED")) {
+    throw new Error("Invalid request");
+  }
 
-	if(status) {
-		data = {
-			status,
-		};
-	}
+  if (status) {
+    data = {
+      status,
+    };
+  }
 
-	if(makeTime && status === "ACCEPTED") {
-		data = {
-			status,
-			makeTime,
-		};
-	}
+  if (makeTime && status === "ACCEPTED") {
+    data = {
+      status,
+      makeTime: String(makeTime),
+    };
+  }
 
-	const order = await prisma.order.update({
-		where: {
-			id,
-		},
-		data
-	});
+  const order = await prisma.order.update({
+    where: {
+      id,
+    },
+    data,
+  });
 
-	return NextResponse.json(order);
+  return NextResponse.json(order);
 }

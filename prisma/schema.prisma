@@ -20,7 +20,7 @@ model Order {
   name       String
   email      String
   phone      String
-  status     ORDER_STATUS @default(PENDING)
+  status     ORDER_STATUS @default(NEW)
   makeTime   String?
   created_at DateTime     @default(now())
   updated_at DateTime     @updatedAt
@@ -61,7 +61,7 @@ enum Role {
 }
 
 enum ORDER_STATUS {
-  PENDING
+  NEW
   ACCEPTED
   PICKED_UP
   CANCELLED

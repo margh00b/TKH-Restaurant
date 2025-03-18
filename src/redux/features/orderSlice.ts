@@ -26,7 +26,7 @@ export const updateOrder = createAsyncThunk(
       body: JSON.stringify({ id, makeTime, status }),
     });
     return response.json();
-  },
+  }
 );
 
 export const getOrdersSlice = createSlice({

@@ -7,7 +7,7 @@ import { FaBowlFood } from "react-icons/fa6";
 import { FaUtensils } from "react-icons/fa";
 import Button from "@/components/Button/button";
 
-const OrderItem = ({ order }: { order: any }) => {
+const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
   const dispatch = useAppDispatch();
 
   const [makeTime, setMakingTime] = useState(10);
@@ -44,7 +44,13 @@ const OrderItem = ({ order }: { order: any }) => {
   };
   return (
     <div className="flex flex-col text-lg rounded-2xl items-center w-full h-full bg-gray-100 text-white shadow-2xl">
-      <div className="flex justify-between rounded-2xl w-full p-5 bg-green-800">
+      <div className="flex justify-between rounded-2xl w-full p-5 bg-[#084a00]">
+        <button
+          onClick={onClose}
+          className=" bg-orange-500 text-white rounded-full h-8 w-8 flex items-center justify-center"
+        >
+          ✖
+        </button>
         <div>
           <div className="text-white/75 text-sm">
             {order.status} #{order.id}
@@ -112,13 +118,36 @@ const OrderItem = ({ order }: { order: any }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center rounded-2xl w-full p-5 bg-white  mt-2">
+      <div className="flex justify-between rounded-2xl w-full p-5 bg-white  mt-2">
         <button
-          onClick={handleAcceptOrder}
-          className="place-self-center shadow-lg bg-red-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600"
+          onClick={handleCancelOrder}
+          className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600"
         >
-          Confirm Order
+          Cancel
         </button>
+        {order.status === "ACCEPTED" ? (
+          <button
+            onClick={handleDeliveredOrder}
+            className="place-self-center shadow-lg bg-green-600 text-white text-lg py-2 px-6 rounded-2xl hover:bg-green-300"
+          >
+            Ready for pickup
+          </button>
+        ) : order.status === "NEW" ? (
+          <button
+            onClick={handleAcceptOrder}
+            className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600"
+          >
+            Confirm Order
+          </button>
+        ) : order.status === "PICKED_UP" ? (
+          <button className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600">
+            Order Picked Up
+          </button>
+        ) : (
+          <button className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600">
+            Order Cancelled
+          </button>
+        )}
       </div>
     </div>
   );
