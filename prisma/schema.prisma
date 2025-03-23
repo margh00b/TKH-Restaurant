@@ -63,6 +63,7 @@ enum Role {
 enum ORDER_STATUS {
   NEW
   ACCEPTED
+  READY
   PICKED_UP
   CANCELLED
 }
