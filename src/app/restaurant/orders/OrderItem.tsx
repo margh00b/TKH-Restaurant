@@ -25,7 +25,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
   }, [makeTime]);
 
   const handleUpdateStatus = async (status: string) => {
-    await dispatch(updateOrder({ id: order.id, status }));
+    await dispatch(updateOrder({ id: order.id, status, makeTime }));
     await dispatch(getOrders());
   };
 

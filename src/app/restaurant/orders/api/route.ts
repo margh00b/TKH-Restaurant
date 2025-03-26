@@ -72,10 +72,6 @@ export async function PUT(request: any) {
     throw new Error("Invalid request");
   }
 
-  if (makeTime && !(status === "ACCEPTED")) {
-    throw new Error("Invalid request");
-  }
-
   if (status) {
     data = {
       status,

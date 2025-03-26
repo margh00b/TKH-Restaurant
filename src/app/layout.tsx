@@ -5,6 +5,7 @@ import { ReduxProvider } from "@/redux/provider";
 import { DM_Serif_Display } from "next/font/google";
 import { CartProvider } from "@/components/CartProvider";
 import { Suspense } from "react";
+import "../redux/subscribers/orderStatusSubscriber";
 const inter = Inter({ subsets: ["latin"] });
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dmSerifDisplay",
@@ -29,10 +30,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <CartProvider>
-              <Suspense fallback={<div>Loading</div>}>
-                {children}
-              </Suspense>
-            </CartProvider>
+            <Suspense fallback={<div>Loading</div>}>{children}</Suspense>
+          </CartProvider>
         </ReduxProvider>
       </body>
     </html>
