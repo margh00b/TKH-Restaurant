@@ -17,7 +17,6 @@ const OrderItemCollapsed = ({
   const dispatch = useAppDispatch();
 
   const [makeTime, setMakingTime] = useState(10);
-
   const totalQuantity = useMemo(
     () =>
       order.items.reduce(
