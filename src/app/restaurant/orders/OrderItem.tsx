@@ -11,11 +11,14 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
 
   const totalQuantity = useMemo(
     () =>
-      order.items.reduce(
-        (total: any, item: any) => total + parseInt(item.quantity, 10),
-        0
-      ),
-    [order.items]
+      order.OrderItem && Array.isArray(order.OrderItem)
+        ? order.OrderItem.reduce(
+            (total: number, item: { quantity: string }) =>
+              total + (parseInt(item.quantity, 10) || 0),
+            0
+          )
+        : 0,
+    [order.OrderItem]
   );
 
   const estimatedPickupTime = useMemo(() => {
@@ -74,15 +77,15 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
 
       <div className="flex w-full text-black">
         <div className="flex flex-col w-[60%] px-5 py-2 shadow-lg items-center bg-white rounded-xl">
-          {order.items.map((item: any, index: any) => (
+          {order.OrderItem?.map((item: any, index: any) => (
             <div key={index} className="flex w-full justify-between text-xl">
               <p className="text-bold">{item.quantity} x </p>
-              <p className="font-semibold">{item.title}</p>
+              <p className="font-semibold">{item.MenuItem?.title}</p>
               <p>
                 $
-                {(parseFloat(item.price) * parseInt(item.quantity, 10)).toFixed(
-                  2
-                )}
+                {(
+                  parseFloat(item.MenuItem?.price) * parseInt(item.quantity, 10)
+                ).toFixed(2)}
               </p>
             </div>
           ))}

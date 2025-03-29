@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button/button";
+import { supabase } from "@/utils/supabaseClient";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -17,17 +18,28 @@ const OrderConfirmation = () => {
 
   const getOrder = useCallback(async () => {
     try {
-      const { data: order } = await axios.get(`/restaurant/orders/api?orderId=${orderId}`);
+      const { data: order, error } = await supabase
+        .from("Order")
+        .select("*, OrderItem(id, quantity, MenuItem(id, title, price))")
+        .eq("id", orderId)
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
       setOrder(order);
-      console.log(order);
+      console.log(`${JSON.stringify(order)}`);
     } catch (error) {
       console.error("Failed to fetch order:", error);
     }
   }, [orderId]);
 
   const totalCost = useMemo(() => {
-    if (!order || !order.items) return `$0.00`;
-    return `$${order.items.reduce((total: number, item: any) => total + item.price * item.quantity, 0).toFixed(2)}`;
+    if (!order || !order.OrderItem) return `$0.00`;
+    return `$${order.OrderItem.reduce(
+      (total: number, item: any) => total + item.MenuItem.price * item.quantity,
+      0
+    ).toFixed(2)}`;
   }, [order]);
 
   useEffect(() => {
@@ -62,14 +74,14 @@ const OrderConfirmation = () => {
             Order Summary
           </h2>
           <div className="space-y-4">
-            {order?.items?.map((item: any) => (
+            {order?.OrderItem?.map((item: any) => (
               <div
                 key={item.id}
                 className="flex justify-between items-center p-4 border border-gray-200 rounded-lg shadow-sm"
               >
                 <div>
                   <h3 className="text-lg font-semibold text-gray-700">
-                    {item.title}
+                    {item.MenuItem.title}
                   </h3>
                   <p className="text-sm text-gray-500">
                     Quantity: {item.quantity}
@@ -77,10 +89,10 @@ const OrderConfirmation = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-500">
-                    Unit Price: ${item.price.toFixed(2)}
+                    Unit Price: ${item.MenuItem.price.toFixed(2)}
                   </p>
                   <p className="text-lg font-bold text-gray-800">
-                    Total: ${(item.price * item.quantity).toFixed(2)}
+                    Total: ${(item.MenuItem.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
               </div>

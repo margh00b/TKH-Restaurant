@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { setCart } from "@/redux/features/cartSlice";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/utils/supabaseClient";
 
 const Checkout = () => {
   const router = useRouter();
@@ -19,10 +20,10 @@ const Checkout = () => {
         .reduce(
           (total, item: any) =>
             total + parseFloat(item.price) * parseInt(item.quantity, 10),
-          0,
+          0
         )
         .toFixed(2)}`,
-    [cartItems],
+    [cartItems]
   );
 
   const [name, setName] = useState("");
@@ -35,28 +36,51 @@ const Checkout = () => {
   }, []);
 
   const handlePlaceOrder = async () => {
-    const {
-      data: { order },
-    } = await axios.post("/customer/checkout/api", {
-      cart: cartItems,
-      name,
-      phone,
-      email,
-    });
+    try {
+      if (!cartItems || !name || !phone || !email) {
+        throw new Error("Invalid data: Missing cart, name, phone, or email");
+      }
+      const { data: order, error: orderError } = await supabase
+        .from("Order")
+        .insert([{ name, phone, email }])
+        .select("id")
+        .single();
+      if (orderError) {
+        throw new Error(orderError.message);
+      }
 
-    dispatch(setCart({ items: [], show: false }));
+      const orderItems = cartItems.map((item) => ({
+        menuItemId: item.id,
+        quantity: item.quantity,
+        price: item.price,
+        orderId: order.id,
+      }));
 
-    setName("");
-    setPhone("");
-    setEmail("");
+      const { error: orderItemsError } = await supabase
+        .from("OrderItem")
+        .insert(orderItems);
 
-    router.push("/customer/confirmation?orderId=" + order.id);
+      if (orderItemsError) {
+        throw new Error(orderItemsError.message);
+      }
+
+      // Clear the cart and reset the form fields after successful order placement
+      dispatch(setCart({ items: [], show: false }));
+      setName("");
+      setPhone("");
+      setEmail("");
+
+      // Redirect to the confirmation page with the order ID
+      router.push("/customer/confirmation?orderId=" + order.id);
+    } catch (error: any) {
+      console.error("Error placing order:", error.message || error);
+      alert("Failed to place order: " + (error.message || error));
+    }
   };
 
   if (!isMounted) {
     return null;
   }
-
   return (
     <div className="flex justify-center p-10 mt-20">
       <div className="flex flex-col w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
