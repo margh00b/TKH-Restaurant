@@ -1,15 +1,22 @@
-import React from "react";
-
+"use client";
+import MenuItems from "@/components/Menu/subcomponents/MenuItems/menuItems";
+import MenuNav from "@/components/Menu/subcomponents/MenuNavigation/menuNavigation";
+import { menuCategoryData } from "@/app/dummy/menuCategories.dummy";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { getMenuItems } from "@/redux/features/menuSlice";
+import MenuComp from "@/components/Menu/menucomp";
 const Menu = () => {
-	  return (
-	<div className="flex justify-center p-10 mt-20">
-	  <div className={`flex flex-col top-20 bg-white p-4 w-2/3`}>
-		<div className={`text-center`}>
-		  <h1 className="text-2xl">Menu</h1>
-		</div>
-	  </div>
-	</div>
-  );
-}
+  const categoryState = useAppSelector((state) => state.menu.menuCategoryState);
+  const menuData = useAppSelector((state) => state.menuItems.items);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (menuData.length === 0) {
+      dispatch(getMenuItems());
+    }
+  }, [dispatch, menuData.length]);
 
+  return <MenuComp />;
+};
 export default Menu;

@@ -2,39 +2,46 @@ import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interf
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { supabase } from "@/utils/supabaseClient";
 
 export interface IMenuState {
-	items: menuItem[];
-	loading?: boolean;
+  items: menuItem[];
+  loading?: boolean;
 }
 
 let initialState: IMenuState = {
-	items: [],
-	loading: false,
+  items: [],
+  loading: false,
 };
 
-export const getMenuItems = createAsyncThunk("menuItems/getMenuItems", async () => {
-	const response = await fetch("/customer/menu/api");
-	console.log("menu: ", response);
-	return response.json();
-});
+export const getMenuItems = createAsyncThunk(
+  "menuItems/getMenuItems",
+  async () => {
+    const { data, error } = await supabase.from("MenuItem").select("*");
+    if (error) {
+      throw error;
+    }
+    console.log("menu: ", data);
+    return data;
+  }
+);
 
 export const menuItemsSlice = createSlice({
-	name: "menuItems",
-	initialState,
-	reducers: {},
-	extraReducers: (builder) => {
-		builder.addCase(getMenuItems.fulfilled, (state, action) => {
-			state.items = action.payload;
-			state.loading = false;
-		});
-		builder.addCase(getMenuItems.pending, (state) => {
-			state.loading = true;
-		});
-		builder.addCase(getMenuItems.rejected, (state) => {
-			state.loading = false;
-		});
-	},
+  name: "menuItems",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getMenuItems.fulfilled, (state, action) => {
+      state.items = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getMenuItems.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getMenuItems.rejected, (state) => {
+      state.loading = false;
+    });
+  },
 });
 
 export const {} = menuItemsSlice.actions;

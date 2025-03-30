@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./deals.css";
 import { useAppSelector } from "@/redux/store";
+import { motion } from "framer-motion";
 
 const Deals = () => {
   const menuData = useAppSelector((state) => state.menuItems.items);
@@ -37,14 +38,30 @@ const Deals = () => {
   return (
     <div className="flex justify-center my-5">
       <div className="w-[80%]">
-        <h1 className="text-3xl  text-center my-10">Today&apos;s Deals</h1>
-        <Slider {...settings}>
-          {menuData
-            .filter((menuItem) => menuItem.category === "MAIN_COURSE")
-            .map((menuItem) => (
-              <DealItems key={menuItem.id} menuItem={menuItem} />
-            ))}
-        </Slider>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="my-5 px-5"
+        >
+          <h1 className="text-3xl  text-center my-10">Today&apos;s Deals</h1>
+          <Slider {...settings}>
+            {menuData
+              .filter((menuItem) => menuItem.category === "MAIN_COURSE")
+              .map((menuItem) => (
+                <motion.div
+                  key={menuItem.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="min-w-[250px]"
+                >
+                  <DealItems key={menuItem.id} menuItem={menuItem} />
+                </motion.div>
+              ))}
+          </Slider>
+        </motion.div>
       </div>
     </div>
   );

@@ -7,13 +7,16 @@ import { FaShoppingCart } from "react-icons/fa";
 import { toggleCart } from "@/redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import IconWithBadge from "../IconWithBadge";
+import { motion } from "framer-motion";
 
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
-  const totalCartItems = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
-
+  const totalCartItems = cartItems.reduce(
+    (total, item) => total + (item.quantity || 0),
+    0
+  );
 
   return (
     <div className="fixed bg-white z-[99] top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
@@ -27,12 +30,20 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
           </li>
         ))}
       </ul>
-      <span
-        className={`absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl`}
+      <motion.span
+        className="absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl"
         onClick={() => dispatch(toggleCart())}
+        animate={{
+          x: totalCartItems > 0 ? [0, -3, 3, -3, 3, 0] : 0,
+        }}
+        transition={{
+          repeat: totalCartItems > 0 ? Infinity : 0,
+          duration: 0.5,
+          ease: "easeInOut",
+        }}
       >
         <IconWithBadge icon={FaShoppingCart} badgeCount={totalCartItems} />
-      </span>
+      </motion.span>
 
       <div
         onClick={() => setNav(!nav)}

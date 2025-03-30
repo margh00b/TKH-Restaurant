@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import Menu from "@/components/Menu/menu";
+import MenuComp from "@/components/Menu/menucomp";
 import Deals from "@/components/Deals/deals";
 import Footer from "@/components/Footer/footer";
 import Hero from "@/components/Hero/hero";
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getMenuItems } from "@/redux/features/menuSlice";
 import Navbar from "@/components/Navbar/navbar";
 import { navbarLinks } from "@/components/Navbar/navbarLinks";
+import { initializeCart } from "@/redux/features/cartSlice";
 
 export default function Home() {
   const showCart = useAppSelector((state) => state.cart.show);
@@ -23,21 +24,25 @@ export default function Home() {
     }
   }, [initialRender]);
 
-  useEffect(()=>{
-    dispatch(getMenuItems())
+  useEffect(() => {
+    dispatch(getMenuItems());
+    dispatch(initializeCart());
+    console.log("initializeCart dispatched");
   }, []);
 
   return (
-    !initialRender && <main>
-      {showCart && <Cart />}
-      <div className={``}>
-      <Navbar links={navbarLinks} />
-        <Hero />
-        <Deals />
-        <Menu />
-        <Reviews />
-        <Footer />
-      </div>
-    </main>
+    !initialRender && (
+      <main>
+        {showCart && <Cart />}
+        <div className={``}>
+          <Navbar links={navbarLinks} />
+          <Hero />
+          <Deals />
+          <MenuComp />
+          <Reviews />
+          <Footer />
+        </div>
+      </main>
+    )
   );
 }
