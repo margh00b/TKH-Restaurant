@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/customer/menu",
         permanent: true,
       },
+      {
+        source: "/contact",
+        destination: "/customer/contact",
+        permanent: true,
+      },
     ];
   },
 };

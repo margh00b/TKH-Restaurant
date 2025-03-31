@@ -2,15 +2,17 @@ import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interf
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { useAppSelector } from "../store";
 
 export interface ICartState {
   show: boolean;
   items: menuItem[];
+  comingFromConfirmation: boolean;
 }
-
 let initialState: ICartState = {
   show: false,
   items: [],
+  comingFromConfirmation: false,
 };
 
 export const cartSlice = createSlice({
@@ -20,8 +22,9 @@ export const cartSlice = createSlice({
     toggleCart: (state) => {
       state.show = !state.show;
     },
+
     addItemToCart: (state, action: PayloadAction<menuItem>) => {
-      // check if item already exists in cart and increment quantity
+		
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -33,7 +36,6 @@ export const cartSlice = createSlice({
       }
     },
     removeItemFromCart: (state, action: PayloadAction<menuItem>) => {
-      // check if item already exists in cart and decrement quantity
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -55,18 +57,27 @@ export const cartSlice = createSlice({
         state.show = false;
       }
     },
+    setComingFromConfirmation: (state, action: PayloadAction<boolean>) => {
+      state.comingFromConfirmation = action.payload;
+    },
   },
 });
 
-export const initializeCart = () => (dispatch: any) => {
+export const initializeCart = () => (dispatch: any, getState: any) => {
   const savedCart = getCookie("cart");
   console.log("Saved Cart:", savedCart);
-  if (savedCart) {
+  const { comingFromConfirmation } = getState().cart;
+  if (savedCart && comingFromConfirmation === false) {
     dispatch(setCart(JSON.parse(savedCart)));
     console.log("Parsed Cart:", JSON.parse(savedCart));
   }
 };
 
-export const { toggleCart, addItemToCart, removeItemFromCart, setCart } =
-  cartSlice.actions;
+export const {
+  toggleCart,
+  addItemToCart,
+  removeItemFromCart,
+  setCart,
+  setComingFromConfirmation,
+} = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

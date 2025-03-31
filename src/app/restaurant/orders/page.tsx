@@ -34,6 +34,7 @@ const Orders = () => {
           <div className="grid grid-cols-3 gap-4 flex-1">
             {orders
               .filter((order) => order.status === categoryState)
+              .sort((a, b) => b.id - a.id)
               .map((order: any) => (
                 <OrderItemCollapsed
                   key={order.id}

@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Contact = () => {
-	  return (
-	<div className="flex justify-center p-10 mt-20">
-	  <div className={`flex flex-col top-20 bg-white p-4 w-2/3`}>
-		<div className={`text-center`}>
-		  <h1 className="text-2xl">Contact</h1>
-		</div>
-	  </div>
-	</div>
+  return (
+    <section className="contact-us text-center p-10">
+      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+      <p className="text-lg">
+        Have questions or need assistance? Reach out to us!
+      </p>
+
+      <div className="mt-6">
+        <p>
+          <strong>Email:</strong> info@tandoorikababhut.ca
+        </p>
+        <p>
+          <strong>Phone:</strong> +1 (403) 460-9757
+        </p>
+        <p>
+          <strong>Address:</strong> 4805 A 17 Avenue Southeast, Calgary, AB T2A
+          0V3, Canada
+        </p>
+      </div>
+    </section>
   );
-}
+};
 
 export default Contact;

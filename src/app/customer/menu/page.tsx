@@ -17,6 +17,10 @@ const Menu = () => {
     }
   }, [dispatch, menuData.length]);
 
-  return <MenuComp />;
+  return (
+    <div className="mt-24">
+      <MenuComp />
+    </div>
+  );
 };
 export default Menu;
