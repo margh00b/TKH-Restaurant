@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabaseClient";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IOrderState {
   orders: any[];
@@ -54,10 +54,44 @@ export const updateOrder = createAsyncThunk(
   }
 );
 
+const subscribeToOrders = (dispatch: any) => {
+  const subscription = supabase
+    .channel("orders-channel")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "Order",
+      },
+      async (payload) => {
+        const newOrder = payload.new;
+        const { data: relatedOrderData, error } = await supabase
+          .from("OrderItem")
+          .select("*, MenuItem(*)")
+          .eq("orderId", newOrder.id);
+
+        if (error) {
+          console.error("Error fetching related order items: ", error);
+          return;
+        }
+        const fullOrder = { ...newOrder, OrderItem: relatedOrderData };
+        dispatch(addOrder(fullOrder));
+      }
+    )
+    .subscribe();
+
+  return subscription;
+};
+
 export const getOrdersSlice = createSlice({
   name: "orders",
   initialState,
-  reducers: {},
+  reducers: {
+    addOrder: (state, action: PayloadAction<any>) => {
+      state.orders.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
@@ -71,6 +105,8 @@ export const getOrdersSlice = createSlice({
     });
   },
 });
-
-export const {} = getOrdersSlice.actions;
+export const subscribeToOrderChanges = (dispatch: any) => {
+  return subscribeToOrders(dispatch);
+};
+export const { addOrder } = getOrdersSlice.actions;
 export const ordersReducer = getOrdersSlice.reducer;

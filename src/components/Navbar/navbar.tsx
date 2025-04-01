@@ -8,11 +8,17 @@ import { toggleCart } from "@/redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import IconWithBadge from "../IconWithBadge";
 import { motion } from "framer-motion";
+import { useHandleReturn } from "@/utils/useHandleReturn";
 
 const Navbar = ({ links }: { links: LinkItem[] }) => {
   const [nav, setNav] = useState(false);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
+  const comingFromConfirmation = useAppSelector(
+    (state) => state.cart.comingFromConfirmation
+  );
+  const handleReturn = useHandleReturn();
+
   const totalCartItems = cartItems.reduce(
     (total, item) => total + (item.quantity || 0),
     0
@@ -26,7 +32,9 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
             key={id}
             className="px-4 cursor-pointer font-medium text-black border-b-2 border-transparent hover:border-b-2 hover:border-orange-500 hover:text-orange-500 duration-200"
           >
-            <Link href={link}>{name}</Link>
+            <Link href={link} onClick={handleReturn}>
+              {name}
+            </Link>
           </li>
         ))}
       </ul>

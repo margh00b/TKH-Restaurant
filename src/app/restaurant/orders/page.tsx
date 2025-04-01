@@ -1,15 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { getOrders } from "@/redux/features/orderSlice";
+import {
+  getOrders,
+  subscribeToOrderChanges,
+} from "@/redux/features/orderSlice";
 import OrderItem from "@/app/restaurant/orders/OrderItem";
 import OrderItemCollapsed from "./OrderItemCollapsed";
 import OrdersNav from "@/components/Ordersnavigation/ordersnav";
+import { supabase } from "@/utils/supabaseClient";
+import useSound from "use-sound";
 
 const Orders = () => {
   const dispatch = useAppDispatch();
   const [visibleOrder, setVisibleOrder] = useState<number | null>(null);
   const orders = useAppSelector((state) => state.orders.orders);
+  const [play] = useSound("/notification.mp3", { volume: 0.25 });
+
   const categoryState = useAppSelector(
     (state) => state.orderCategory.orderCategoryState
   );
@@ -20,7 +27,30 @@ const Orders = () => {
 
   useEffect(() => {
     dispatch(getOrders());
+    const subscription = subscribeToOrderChanges(dispatch);
+
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, [dispatch]);
+  useEffect(() => {
+    if (orders.length > 0) {
+      let count = 0;
+      const intervalRef = setInterval(() => {
+        console.log("Playing sound..."); // Debugg
+        play();
+        count++;
+        if (count === 4) {
+          clearInterval(intervalRef);
+        }
+      }, 2200);
+
+      // Cleanup the interval when the component unmounts or orders change
+      return () => clearInterval(intervalRef);
+    }
+  }, [orders, play]);
 
   return (
     <div

@@ -4,6 +4,7 @@ import Button from "@/components/Button/button";
 import { setCart, setComingFromConfirmation } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/store";
 import { supabase } from "@/utils/supabaseClient";
+import { useHandleReturn } from "@/utils/useHandleReturn";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -15,11 +16,7 @@ const OrderConfirmation = () => {
   const orderId = searchParams.get("orderId");
   const [order, setOrder] = useState<any>(null);
 
-  const handleReturn = () => {
-    dispatch(setCart({ items: [], show: false }));
-    dispatch(setComingFromConfirmation(true));
-    router.push("/");
-  };
+  const handleReturn = useHandleReturn();
 
   const getOrder = useCallback(async () => {
     try {

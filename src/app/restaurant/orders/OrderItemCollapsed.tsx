@@ -53,7 +53,19 @@ const OrderItemCollapsed = ({
 
   return (
     <div className="flex flex-col text-lg rounded-2xl items-center h-[80vh]  bg-gray-100 text-white  shadow-2xl">
-      <div className="flex justify-center rounded-2xl w-full p-5 bg-[#084a00]">
+      <div
+        className={
+          "flex justify-center rounded-2xl w-full p-5" +
+          " " +
+          (order.status === "NEW"
+            ? "animate-pulse-color"
+            : order.status === "ACCEPTED"
+            ? "bg-[#177a0e]" // Example for "ACCEPTED" status
+            : order.status === "READY"
+            ? "bg-[#1a76ff]"
+            : "bg-[#af1c1c]")
+        }
+      >
         <div className="flex flex-col items-center">
           <div className="text-white/75 text-sm">
             {order.status} #{order.id}
