@@ -14,7 +14,7 @@ const MenuComp = () => {
   const categoryState = useAppSelector((state) => state.menu.menuCategoryState);
   const menuData = useAppSelector((state) => state.menuItems.items);
   return (
-    <div className="m-10">
+    <div id="menu" className="my-10 mx-2">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}

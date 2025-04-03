@@ -1,15 +1,23 @@
+import Button from "../Button/button";
 import "./hero.css";
 import { motion } from "framer-motion";
+
 const Hero = () => {
+  const scrollToMenu = () => {
+    const menuSection = document.getElementById("menu");
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
-    <div className="hero mt-20 flex h-[70vh] py-20 overflow-hidden bg-[#fff] bg-[length:50px_50px]">
-      <div className="flex flex-col w-1/2 py-5 px-20 text-white">
+    <div className="hero mt-20  items-center md:items-stretch flex flex-col md:flex md:flex-row md:h-[70vh] py-20 overflow-hidden bg-[#fff] bg-[length:50px_50px]">
+      <div className="flex flex-col md:w-1/2 py-5 px-20 text-center text-white">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
         >
-          <h1 className="text-5xl">
+          <h1 className="text-3xl md:text-5xl font-bold">
             Discover The Taste Of{" "}
             <span className="underline decoration-orange-500 decoration-1 underline-offset-8">
               Tradition
@@ -17,17 +25,23 @@ const Hero = () => {
             At <span className="text-orange-500">Tandoori Kabab Hut</span>
           </h1>
 
-          <p className="text-lg mt-10">
+          <p className="text-xl mt-6 md:mt-10 md:hidden">
+            Enjoy authentic kababs, curries, and more. Order today!
+          </p>
+          <p className="hidden md:block text-base md:text-lg mt-6 md:mt-10">
             At Tandoori Kabab Hut, we specialize in delicious kababs, curries,
             roti, and much more. Using authentic flavours and traditional
             recipes, Tandoori Kabab Hut packs the flavour in every bite. If
-            you&apos;re in the Calgary area and are craving a new bite to eat,
-            try ordering today!
+            you're in the Calgary area and are craving a new bite to eat, try
+            ordering today!
           </p>
+          <div className="mt-6">
+            <Button btnText="View Menu" onClick={scrollToMenu} />
+          </div>
         </motion.div>
       </div>
 
-      <div className="flex justify-center w-1/2">
+      <div className="flex justify-center  w-[40%]">
         <img
           src="/HeroFood2.jpg"
           alt="Tandoori Kabab Hut"
@@ -42,4 +56,5 @@ const Hero = () => {
     </div>
   );
 };
+
 export default Hero;

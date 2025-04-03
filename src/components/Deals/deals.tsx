@@ -31,6 +31,8 @@ const Deals = () => {
           dots: false,
           slidesToShow: 1,
           slidesToScroll: 1,
+          variableWidth: true,
+          centerMode: true,
         },
       },
     ],
@@ -55,7 +57,6 @@ const Deals = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="min-w-[250px]"
                 >
                   <DealItems key={menuItem.id} menuItem={menuItem} />
                 </motion.div>
