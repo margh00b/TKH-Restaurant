@@ -1,22 +1,18 @@
 "use client";
 import Link from "next/link";
 import LinkItem from "@/components/Navbar/navbarLinks.interface";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
-import { toggleCart } from "@/redux/features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { toggleCart } from "@/redux/features/cartSlice";
 import IconWithBadge from "../IconWithBadge";
 import { motion } from "framer-motion";
 import { useHandleReturn } from "@/utils/useHandleReturn";
 
 const Navbar = ({ links }: { links: LinkItem[] }) => {
-  const [nav, setNav] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
-  const comingFromConfirmation = useAppSelector(
-    (state) => state.cart.comingFromConfirmation
-  );
   const handleReturn = useHandleReturn();
 
   const totalCartItems = cartItems.reduce(
@@ -25,56 +21,63 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
   );
 
   return (
-    <div className="fixed bg-white z-[99] top-0 flex justify-around text-2xl items-center w-full h-20 px-4 shadow-lg">
-      <ul className="hidden md:flex">
+    <nav className="fixed bg-white z-[99] top-0 w-full h-20 shadow-md px-6 flex items-center justify-between">
+      {/* 📱 Mobile Menu Button */}
+      <button
+        onClick={() => setNavOpen(!navOpen)}
+        className={`md:hidden ${
+          navOpen ? "text-white" : "text-orange-500"
+        } duration-300 z-50`}
+      >
+        {navOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
+      </button>
+
+      {/* 🖥️ Desktop Navigation (Centered) */}
+      <ul className="hidden md:flex flex-1 justify-center space-x-8 text-lg font-medium">
         {links.map(({ id, link, name }) => (
-          <li
-            key={id}
-            className="px-4 cursor-pointer font-medium text-black border-b-2 border-transparent hover:border-b-2 hover:border-orange-500 hover:text-orange-500 duration-200"
-          >
-            <Link href={link} onClick={handleReturn}>
+          <li key={id} className="relative group">
+            <Link
+              href={link}
+              onClick={handleReturn}
+              className="text-gray-800 hover:text-orange-500 duration-200"
+            >
               {name}
             </Link>
+            <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-orange-500 group-hover:w-full transition-all duration-300"></span>
           </li>
         ))}
       </ul>
-      <motion.span
-        className="absolute right-20 cursor-pointer bg-orange-500 px-5 py-1 rounded-3xl"
+
+      {/* 🛒 Cart Icon (Right Side) */}
+      <motion.button
+        className="cursor-pointer bg-orange-500 text-white px-5 py-2 rounded-full shadow-lg ml-auto hover:bg-orange-600 transition-all"
         onClick={() => dispatch(toggleCart())}
-        animate={{
-          x: totalCartItems > 0 ? [0, -3, 3, -3, 3, 0] : 0,
-        }}
+        animate={{ x: totalCartItems > 0 ? [0, -1, 1, -1, 1, 0] : 0 }}
         transition={{
           repeat: totalCartItems > 0 ? Infinity : 0,
-          duration: 0.5,
+          duration: 1,
           ease: "easeInOut",
         }}
       >
         <IconWithBadge icon={FaShoppingCart} badgeCount={totalCartItems} />
-      </motion.span>
+      </motion.button>
 
-      <div
-        onClick={() => setNav(!nav)}
-        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden duration-300"
-      >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-      </div>
-
-      {nav && (
-        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500">
-          {links.map(({ id, link, name }) => (
-            <li
-              key={id}
-              className="px-4 cursor-pointer capitalize py-6 text-4xl hover:scale-110 duration-300"
-            >
-              <Link onClick={() => setNav(!nav)} href={link}>
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      {/* 📱 Mobile Navigation Menu */}
+      {navOpen && (
+        <div className="fixed inset-0 bg-gradient-to-b from-orange-500 to-orange-700 text-white flex flex-col items-center justify-center">
+          <ul className="text-3xl space-y-6">
+            {links.map(({ id, link, name }) => (
+              <li key={id} className="hover:scale-110 duration-300">
+                <Link href={link} onClick={() => setNavOpen(false)}>
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </div>
+    </nav>
   );
 };
+
 export default Navbar;

@@ -1,17 +1,22 @@
-'use client';
+"use client";
 
 import CartItems from "@/components/Cart/subcomponents/CartItems/cartItems";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import Button from "@/components/Button/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSwipeable } from "react-swipeable";
+import { toggleCart } from "@/redux/features/cartSlice";
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
-  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const handlers = useSwipeable({
+    onSwipedRight: () => dispatch(toggleCart()),
+  });
   return (
     <div
-      className={`shadow-lg z-50 flex flex-col h-[89vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-[30%]`}
+      {...handlers}
+      className={`shadow-lg z-50 flex flex-col h-[89vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-full md:w-[30%]`}
     >
       <div className={`text-center`}>
         <h1 className="text-2xl">This is a Pick-up order</h1>

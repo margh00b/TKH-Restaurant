@@ -15,6 +15,8 @@ const Deals = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 3,
+    variableWidth: true,
+    centerMode: true,
     responsive: [
       {
         breakpoint: 1250,
@@ -31,8 +33,6 @@ const Deals = () => {
           dots: false,
           slidesToShow: 1,
           slidesToScroll: 1,
-          variableWidth: true,
-          centerMode: true,
         },
       },
     ],

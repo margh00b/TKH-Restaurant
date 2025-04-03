@@ -3,17 +3,21 @@ import reviewItem from "@/components/Reviews/subcomponents/ReviewItem/reviewItem
 const ReviewItem = ({ reviewItem }: { reviewItem: reviewItem }) => {
   const { name, desc } = reviewItem;
   return (
-    <div className="flex flex-col items-center max-w-60 shadow-lg border-gray-100 border-2 p-5 m-5 rounded-xl">
-      <img src="/user.png" alt="user" className="w-20 h-20" />
-      <h1 className="text-xl pt-5">{name}</h1>
-      <div className="flex pb-5 pt-2">
-        <FaStar className="text-orange-500" />
-        <FaStar className="text-orange-500" />
-        <FaStar className="text-orange-500" />
-        <FaStar className="text-orange-500" />
-        <FaRegStar />
+    <div className="flex flex-row items-center min-w-96 shadow-lg p-5 rounded-xl">
+      <div className="flex flex-col items-center">
+        <img src="/user.png" alt="user" className="w-14 h-14" />
+        <h1 className="font-semibold pt-3">{name}</h1>
+        <div className="flex pb-5 pt-2">
+          <FaStar className="text-orange-500" />
+          <FaStar className="text-orange-500" />
+          <FaStar className="text-orange-500" />
+          <FaStar className="text-orange-500" />
+          <FaRegStar />
+        </div>
       </div>
-      <p className="text-center overflow-hidden">{desc}</p>
+      <div className="h-1/2 ml-5">
+        <p className="text-center">{desc}</p>
+      </div>
     </div>
   );
 };

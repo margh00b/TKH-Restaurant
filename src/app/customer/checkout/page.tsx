@@ -80,7 +80,7 @@ const Checkout = () => {
     return null;
   }
   return (
-    <div className="flex justify-center p-10 mt-20">
+    <div className="flex justify-center p-5 md:p-10 mt-20">
       <div className="flex flex-col w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">

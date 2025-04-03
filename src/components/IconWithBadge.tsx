@@ -1,7 +1,13 @@
-import React from 'react';
-import { FaBell } from 'react-icons/fa';
+import React from "react";
+import { FaBell } from "react-icons/fa";
 
-const IconWithBadge = ({ icon: Icon, badgeCount } : {icon: typeof FaBell, badgeCount: number}) => {
+const IconWithBadge = ({
+  icon: Icon,
+  badgeCount,
+}: {
+  icon: typeof FaBell;
+  badgeCount: number;
+}) => {
   return (
     <div className="relative inline-block">
       <Icon className="text-white text-xl" />

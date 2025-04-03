@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 const About = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 60 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="max-w-4xl mx-auto p-10 text-center"
+      className="max-w-4xl mx-auto mt-20 p-10 text-center"
     >
       <h1 className="text-4xl font-bold text-orange-600 mb-5">
         About Tandoori Kabab Hut
