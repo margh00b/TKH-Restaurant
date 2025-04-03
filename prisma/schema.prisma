@@ -23,7 +23,7 @@ model Order {
   status     ORDER_STATUS @default(NEW)
   makeTime   String?
   created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
+  updated_at DateTime     @default(now()) @updatedAt
   items      OrderItem[]
 }
 
@@ -45,7 +45,7 @@ model MenuItem {
   price       Float
   image       String
   created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
+  updated_at  DateTime    @default(now()) @updatedAt
   OrderItem   OrderItem[]
 }
 
