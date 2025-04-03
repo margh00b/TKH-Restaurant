@@ -15,7 +15,7 @@ const ReviewItem = ({ reviewItem }: { reviewItem: reviewItem }) => {
           <FaRegStar />
         </div>
       </div>
-      <div className="h-1/2 ml-5">
+      <div className="h-1/2 ml-5 w-1/2 text-sm md:w-full md:text-base">
         <p className="text-center">{desc}</p>
       </div>
     </div>
