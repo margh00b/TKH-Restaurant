@@ -36,7 +36,7 @@ const About = () => {
       </div>
 
       <p className="text-lg text-gray-700 leading-relaxed">
-        If you're in the Calgary area and craving a delicious meal, we invite
+        If you&apos;re in the Calgary area and craving a delicious meal, we invite
         you to try our specialties like{" "}
         <span className="font-semibold text-orange-500">Chicken Biryani</span>,
         <span className="font-semibold text-orange-500">

@@ -28,7 +28,7 @@ export default function Home() {
     dispatch(getMenuItems());
     dispatch(initializeCart());
     console.log("initializeCart dispatched");
-  }, []);
+  }, [dispatch]);
 
   return (
     !initialRender && (
