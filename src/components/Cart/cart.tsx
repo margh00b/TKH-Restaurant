@@ -16,7 +16,7 @@ const Cart = () => {
   return (
     <div
       {...handlers}
-      className={`shadow-lg z-50 flex flex-col h-[89vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-full md:w-[30%]`}
+      className={`shadow-lg z-50 flex flex-col h-[92vh] fixed right-0 top-20 bg-white overflow-y-auto p-4 w-full md:w-[30%]`}
     >
       <div className={`text-center`}>
         <h1 className="text-2xl">This is a Pick-up order</h1>
