@@ -14,11 +14,11 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
   return (
     <div className="flex justify-around items-center w-full h-20 mb-5 shadow-lg rounded-[17px] text-xl border-2 border-gray-100">
       {/* Mobile: Dropdown for category selection */}
-      <div className="relative w-full md:hidden flex justify-center">
-        <button
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="px-4 py-2 mx-4 rounded-lg text-orange-500"
-        >
+      <div
+        className="relative w-full md:hidden flex justify-center"
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      >
+        <button className="px-4 py-2 mx-4 rounded-lg text-orange-500">
           {selectedCategory.replace("_", " ")} ▼
         </button>
 
