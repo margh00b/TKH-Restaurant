@@ -8,8 +8,15 @@ import { toggleCart } from "@/redux/features/cartSlice";
 import IconWithBadge from "../IconWithBadge";
 import { motion } from "framer-motion";
 import { useHandleReturn } from "@/utils/useHandleReturn";
+import { useRouter } from "next/router";
 
-const Navbar = ({ links }: { links: LinkItem[] }) => {
+const Navbar = ({
+  links,
+  showCart = true,
+}: {
+  links: LinkItem[];
+  showCart?: boolean;
+}) => {
   const [navOpen, setNavOpen] = useState(false);
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -49,18 +56,20 @@ const Navbar = ({ links }: { links: LinkItem[] }) => {
       </ul>
 
       {/* 🛒 Cart Icon (Right Side) */}
-      <motion.button
-        className="cursor-pointer bg-orange-500 text-white px-5 py-2 rounded-full shadow-lg ml-auto hover:bg-orange-600 transition-all"
-        onClick={() => dispatch(toggleCart())}
-        animate={{ x: totalCartItems > 0 ? [0, -1, 1, -1, 1, 0] : 0 }}
-        transition={{
-          repeat: totalCartItems > 0 ? Infinity : 0,
-          duration: 1,
-          ease: "easeInOut",
-        }}
-      >
-        <IconWithBadge icon={FaShoppingCart} badgeCount={totalCartItems} />
-      </motion.button>
+      {showCart && (
+        <motion.button
+          className="cursor-pointer bg-orange-500 text-white px-5 py-2 rounded-full shadow-lg ml-auto hover:bg-orange-600 transition-all"
+          onClick={() => dispatch(toggleCart())}
+          animate={{ x: totalCartItems > 0 ? [0, -1, 1, -1, 1, 0] : 0 }}
+          transition={{
+            repeat: totalCartItems > 0 ? Infinity : 0,
+            duration: 1,
+            ease: "easeInOut",
+          }}
+        >
+          <IconWithBadge icon={FaShoppingCart} badgeCount={totalCartItems} />
+        </motion.button>
+      )}
 
       {/* 📱 Mobile Navigation Menu */}
       {navOpen && (
