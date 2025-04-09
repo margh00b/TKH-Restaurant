@@ -9,6 +9,7 @@ export const middleware = async (req: NextRequest) => {
     }
     return NextResponse.redirect(new URL("/restaurant/admin", req.url));
   }
+  return NextResponse.next();
 };
 export const config = {
   matcher: [
