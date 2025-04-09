@@ -39,37 +39,20 @@ const Checkout = () => {
     try {
       if (cartItems.length <= 0) {
         return alert("Cart is Empty!");
-      } else {
-        if (!cartItems || !name || !phone || !email) {
-          throw new Error("Invalid data: Missing cart, name, phone, or email");
-        }
-        const { data: order, error: orderError } = await supabase
-          .from("Order")
-          .insert([{ name, phone, email }])
-          .select("id")
-          .single();
-        if (orderError) {
-          throw new Error(orderError.message);
-        }
-
-        const orderItems = cartItems.map((item) => ({
-          menuItemId: item.id,
-          quantity: item.quantity,
-          price: item.price,
-          orderId: order.id,
-        }));
-
-        const { error: orderItemsError } = await supabase
-          .from("OrderItem")
-          .insert(orderItems);
-
-        if (orderItemsError) {
-          throw new Error(orderItemsError.message);
-        }
-
-        // Redirect to the confirmation page with the order ID
-        router.push("/customer/confirmation?orderId=" + order.id);
       }
+
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, email, cartItems }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to place order");
+      }
+
+      router.push("/customer/confirmation?orderId=" + data.orderId);
     } catch (error: any) {
       console.error("Error placing order:", error.message || error);
       alert("Failed to place order: " + (error.message || error));

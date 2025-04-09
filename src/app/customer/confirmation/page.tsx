@@ -20,15 +20,9 @@ const OrderConfirmation = () => {
 
   const getOrder = useCallback(async () => {
     try {
-      const { data: order, error } = await supabase
-        .from("Order")
-        .select("*, OrderItem(id, quantity, MenuItem(id, title, price))")
-        .eq("id", orderId)
-        .single();
-
-      if (error) {
-        throw new Error(error.message);
-      }
+      const res = await fetch(`/api/order/${orderId}`);
+      const order = await res.json();
+      if (!res.ok) throw new Error(order.error || "Failed to fetch order");
       setOrder(order);
       console.log(`${JSON.stringify(order)}`);
     } catch (error) {

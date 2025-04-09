@@ -1,5 +1,6 @@
 import { supabase } from "@/utils/supabaseClient";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { body } from "framer-motion/client";
 
 export interface IOrderState {
   orders: any[];
@@ -12,45 +13,21 @@ let initialState: IOrderState = {
 };
 
 export const getOrders = createAsyncThunk("orders/getOrders", async () => {
-  const { data, error } = await supabase
-    .from("Order")
-    .select("*, OrderItem(*, MenuItem(*))");
-  if (error) throw error;
-  return data;
+  const res = await fetch("/api/orders/getOrders");
+  if (!res.ok) throw new Error("Faield to fetch Orders!");
+  return res.json();
 });
 
 export const updateOrder = createAsyncThunk(
   "orders/acceptOrder",
   async ({ id, makeTime, status }: any) => {
-    if (!makeTime && !status) {
-      throw new Error("Invalid request");
-    }
-
-    let data = {};
-
-    if (status) {
-      data = { status };
-    }
-
-    if (makeTime && status === "ACCEPTED") {
-      data = {
-        status,
-        makeTime: String(makeTime),
-      };
-    }
-
-    const { data: updatedOrder, error } = await supabase
-      .from("Order")
-      .update(data)
-      .eq("id", id)
-      .select()
-      .single();
-
-    if (error) {
-      throw new Error(error.message);
-    }
-
-    return updatedOrder;
+    const res = await fetch("/api/orders/updateOrder", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, makeTime, status }),
+    });
+    if (!res.ok) throw new Error("Failed to update order.");
+    return res.json();
   }
 );
 
@@ -66,17 +43,20 @@ const subscribeToOrders = (dispatch: any) => {
       },
       async (payload) => {
         const newOrder = payload.new;
-        const { data: relatedOrderData, error } = await supabase
-          .from("OrderItem")
-          .select("*, MenuItem(*)")
-          .eq("orderId", newOrder.id);
-
-        if (error) {
-          console.error("Error fetching related order items: ", error);
-          return;
+        const res = await fetch(
+          `/api/orders/subscription?newOrderId=${newOrder.id}`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (!res.ok) {
+          console.error("Error fetching related order data:", await res.json());
+        } else {
+          const relatedOrderData = await res.json();
+          const fullOrder = { ...newOrder, OrderItem: relatedOrderData };
+          dispatch(addOrder(fullOrder));
         }
-        const fullOrder = { ...newOrder, OrderItem: relatedOrderData };
-        dispatch(addOrder(fullOrder));
       }
     )
     .subscribe();

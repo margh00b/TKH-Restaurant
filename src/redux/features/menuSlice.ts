@@ -17,12 +17,10 @@ let initialState: IMenuState = {
 export const getMenuItems = createAsyncThunk(
   "menuItems/getMenuItems",
   async () => {
-    const { data, error } = await supabase.from("MenuItem").select("*");
-    if (error) {
-      throw error;
-    }
-    console.log("menu: ", data);
-    return data;
+    const res = await fetch("/api/menu");
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || "Failed to fetch menu");
+    return json.data;
   }
 );
 
