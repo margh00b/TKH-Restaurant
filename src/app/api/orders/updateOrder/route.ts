@@ -1,6 +1,5 @@
 import { supabase } from "@/utils/supabaseClient";
 import { NextResponse } from "next/server";
-
 export async function PUT(req: Request) {
   const { id, makeTime, status } = await req.json();
   try {
