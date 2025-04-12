@@ -13,7 +13,7 @@ let initialState: IOrderState = {
 };
 
 export const getOrders = createAsyncThunk("orders/getOrders", async () => {
-  const res = await fetch("/api/orders/getOrders");
+  const res = await fetch("/api/orders/getOrders", { cache: "no-store" });
   if (!res.ok) throw new Error("Faield to fetch Orders!");
   return res.json();
 });
