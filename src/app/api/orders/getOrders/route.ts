@@ -7,7 +7,13 @@ export async function GET() {
       .from("Order")
       .select("*, OrderItem(*, MenuItem(*))");
     if (error) throw error;
-    return NextResponse.json(data);
+    return new NextResponse(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store",
+      },
+    });
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
