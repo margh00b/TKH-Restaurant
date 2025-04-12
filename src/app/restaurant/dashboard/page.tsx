@@ -8,9 +8,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const menuItems = useAppSelector((state) => state.menuItems.items);
+
   useEffect(() => {
     dispatch(getMenuItems());
-    console.log(menuItems);
   }, [dispatch]);
 
   return (
@@ -30,15 +30,21 @@ const Dashboard = () => {
           {menuItems.map((item) => (
             <tr key={item.id}>
               <td className="border border-gray-400 px-4 py-2">{item.id}</td>
-              <td className="border border-gray-400 px-4 py-2">{item.title}</td>
               <td className="border border-gray-400 px-4 py-2">
-                {item.description}
+                <input type="text" value={item.title} />
               </td>
               <td className="border border-gray-400 px-4 py-2">
-                {item.category}
+                <input type="text" value={item.description} />
               </td>
-              <td className="border border-gray-400 px-4 py-2">{item.price}</td>
-              <td className="border border-gray-400 px-4 py-2">{item.image}</td>
+              <td className="border border-gray-400 px-4 py-2">
+                <input type="text" value={item.category} />
+              </td>
+              <td className="border border-gray-400 px-4 py-2">
+                <input type="text" value={item.price} />
+              </td>
+              <td className="border border-gray-400 px-4 py-2">
+                <input type="text" value={item.image} />
+              </td>
             </tr>
           ))}
         </tbody>

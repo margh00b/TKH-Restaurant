@@ -7,7 +7,9 @@ export async function GET() {
       .from("Order")
       .select("*, OrderItem(*, MenuItem(*))");
     if (error) throw error;
-    return NextResponse.json(data);
+    const response = NextResponse.json(data);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
