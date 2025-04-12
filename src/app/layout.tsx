@@ -6,6 +6,7 @@ import { DM_Serif_Display } from "next/font/google";
 import { CartProvider } from "@/components/CartProvider";
 import { Suspense } from "react";
 import "../redux/subscribers/orderStatusSubscriber";
+export const fetchCache = "force-no-store";
 const inter = Inter({ subsets: ["latin"] });
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dmSerifDisplay",
