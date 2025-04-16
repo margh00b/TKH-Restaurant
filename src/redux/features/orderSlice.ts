@@ -83,6 +83,26 @@ export const getOrdersSlice = createSlice({
     builder.addCase(getOrders.rejected, (state) => {
       state.loading = false;
     });
+    builder.addCase(updateOrder.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(updateOrder.fulfilled, (state, action) => {
+      const updatedOrder = action.payload;
+
+      const index = state.orders.findIndex(
+        (order) => order.id === updatedOrder.id
+      );
+      if (index !== -1) {
+        state.orders[index] = updatedOrder;
+      }
+
+      state.loading = false;
+    });
+
+    builder.addCase(updateOrder.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 export const subscribeToOrderChanges = (dispatch: any) => {

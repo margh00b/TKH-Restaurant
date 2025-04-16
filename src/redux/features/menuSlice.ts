@@ -1,8 +1,5 @@
 import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCookie } from "cookies-next";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { supabase } from "@/utils/supabaseClient";
 
 export interface IMenuState {
   items: menuItem[];
@@ -23,6 +20,30 @@ export const getMenuItems = createAsyncThunk(
     return json.data;
   }
 );
+export const updateMenuItems = createAsyncThunk(
+  "menuItems/updateMenuItems",
+  async ({ id, title, description, category, price, image }: any) => {
+    const res = await fetch("/api/menu", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, title, description, category, price, image }),
+    });
+    console.log("res.json():", await res.json());
+    return res.json();
+  }
+);
+
+export const deleteMenuItems = createAsyncThunk(
+  "menuItems/deleteMenuItems",
+  async (id: number) => {
+    const res = await fetch("/api/menu", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    return res.json();
+  }
+);
 
 export const menuItemsSlice = createSlice({
   name: "menuItems",
@@ -37,6 +58,16 @@ export const menuItemsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getMenuItems.rejected, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(updateMenuItems.fulfilled, (state, action) => {
+      state.items = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(updateMenuItems.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateMenuItems.rejected, (state) => {
       state.loading = false;
     });
   },
