@@ -20,6 +20,19 @@ export const getMenuItems = createAsyncThunk(
     return json.data;
   }
 );
+
+export const addMenuItems = createAsyncThunk(
+  "menuItems/addMenuItems",
+  async ({ id, title, description, category, price, image }: any) => {
+    const res = await fetch("/api/menu", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, title, description, category, price, image }),
+    });
+    return res.json();
+  }
+);
+
 export const updateMenuItems = createAsyncThunk(
   "menuItems/updateMenuItems",
   async ({ id, title, description, category, price, image }: any) => {
@@ -28,7 +41,6 @@ export const updateMenuItems = createAsyncThunk(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, title, description, category, price, image }),
     });
-    console.log("res.json():", await res.json());
     return res.json();
   }
 );
