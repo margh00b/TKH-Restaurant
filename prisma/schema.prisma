@@ -28,7 +28,7 @@ model Order {
 }
 
 model OrderItem {
-  id         Int      @id @default(autoincrement())
+  id         Int      @id @db.Identity()
   menuItemId Int
   quantity   Int
   price      Float

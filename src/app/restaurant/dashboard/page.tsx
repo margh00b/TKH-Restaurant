@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { menuCategoryData } from "@/app/dummy/menuCategories.dummy";
 import menuItem from "@/components/Menu/subcomponents/MenuItems/menuItems.interface";
 import { ToastContainer, toast } from "react-toastify";
+import { FaCircleCheck } from "react-icons/fa6";
+import { MdCancel } from "react-icons/md";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -238,7 +240,7 @@ const Dashboard = () => {
                         className="px-4 py-2 w-full border border-gray-300 rounded-md"
                       />
                     </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className="flex gap-2 mt-4">
                       <button
                         onClick={() =>
                           handleUpdateMenuItem({
@@ -250,16 +252,17 @@ const Dashboard = () => {
                             image: item.image,
                           })
                         }
-                        className="bg-orange-500 hover:bg-orange-700 text-white text-sm font-medium py-2 px-4 rounded-md transition-all duration-200 shadow-sm"
+                        className="flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white  py-1 px-2 rounded-full transition-all duration-200 shadow-md"
                       >
                         Submit
+                        <FaCircleCheck className="w-5 h-5 text-white" />
                       </button>
-
                       <button
                         onClick={() => handleDeleteMenuItems(item.id)}
-                        className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-2 px-4 ml-4 rounded-md transition-colors duration-200 shadow-md"
+                        className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white  py-1 px-2  rounded-full transition-all duration-200 shadow-md"
                       >
                         Delete
+                        <MdCancel className="w-5 h-5 text-white" />
                       </button>
                     </td>
                   </tr>
