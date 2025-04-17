@@ -50,8 +50,17 @@ const Dashboard = () => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     field: any
   ) => {
-    setnewItem({ ...newItem, [field]: e.target.value });
+    let value = e.target.value;
+    if (field === "image" && value && !value.startsWith("/")) {
+      value = "/" + value;
+    }
+
+    setnewItem((prevItem) => ({
+      ...prevItem,
+      [field]: value,
+    }));
   };
+
   const handleAddMenuItem = async () => {
     if (
       !newItem.title ||
