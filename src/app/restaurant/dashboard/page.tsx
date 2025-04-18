@@ -35,7 +35,7 @@ const Dashboard = () => {
   }, [menuItems]);
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     id: number,
     field: any
   ) => {
@@ -226,12 +226,20 @@ const Dashboard = () => {
                       />
                     </td>
                     <td className="px-4 py-3">
-                      <input
-                        type="text"
+                      <select
                         value={item.category}
                         onChange={(e) => handleChange(e, item.id, "category")}
                         className="px-4 py-2 w-full border border-gray-300 rounded-md"
-                      />
+                      >
+                        <option value="" disabled>
+                          Select Category
+                        </option>
+                        {menuCategoryData.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                     <td className="px-4 py-3">
                       <input

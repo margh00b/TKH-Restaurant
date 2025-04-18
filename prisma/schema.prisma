@@ -75,5 +75,7 @@ enum Category {
   RICE
   DESSERT
   DRINKS
+  SIDES
+  WRAPS
   DEALS
 }

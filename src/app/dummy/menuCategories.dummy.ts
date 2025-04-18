@@ -5,5 +5,7 @@ export const menuCategoryData: string[] = [
   "RICE",
   "DESSERT",
   "DRINKS",
-  "DEALS"
+  "SIDES",
+  "WRAPS",
+  "DEALS",
 ];
