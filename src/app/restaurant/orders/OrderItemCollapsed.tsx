@@ -52,7 +52,7 @@ const OrderItemCollapsed = ({
   };
 
   return (
-    <div className="flex flex-col text-lg rounded-2xl items-center h-[80vh]  bg-gray-100 text-white  shadow-2xl">
+    <div className="flex flex-col text-lg rounded-2xl items-center h-[70vh]  bg-gray-100 text-white  shadow-2xl">
       <div
         className={
           "flex justify-center rounded-2xl w-full p-5" +
