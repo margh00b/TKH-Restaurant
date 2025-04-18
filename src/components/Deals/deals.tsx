@@ -50,7 +50,7 @@ const Deals = () => {
           <h1 className="text-3xl  text-center my-10">Today&apos;s Deals</h1>
           <Slider {...settings}>
             {menuData
-              .filter((menuItem) => menuItem.category === "DEALS")
+              .filter((menuItem) => menuItem.category === "CURRIES")
               .map((menuItem) => (
                 <motion.div
                   key={menuItem.id}

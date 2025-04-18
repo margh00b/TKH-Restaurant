@@ -5,7 +5,7 @@ export interface IMenuCategoryState {
 }
 
 const initialState: IMenuCategoryState = {
-  menuCategoryState: "STARTERS",
+  menuCategoryState: "CURRIES",
 };
 
 export const menuCategorySlice = createSlice({

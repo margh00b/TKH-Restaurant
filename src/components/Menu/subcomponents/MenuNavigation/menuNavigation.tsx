@@ -11,6 +11,9 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
     (state) => state.menu.menuCategoryState
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const filteredCategories = categories.filter(
+    (category) => category !== "DEALS"
+  );
   return (
     <div className="flex justify-around items-center w-full h-20 mb-5 shadow-lg rounded-[17px] text-xl border-2 border-gray-100">
       {/* Mobile: Dropdown for category selection */}
@@ -31,7 +34,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="absolute left-0 mt-14 w-full bg-white shadow-lg rounded-b-lg border-b-4 border-orange-500"
             >
-              {categories
+              {filteredCategories
                 .filter((category) => category !== selectedCategory)
                 .map((category) => (
                   <li
@@ -51,7 +54,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
       </div>
       {/* Desktop: Full category list */}
       <ul className="hidden md:flex px-10 flex-wrap">
-        {categories.map((category, index) => (
+        {filteredCategories.map((category, index) => (
           <div
             key={index}
             onClick={() => {
@@ -68,7 +71,7 @@ const MenuNav = ({ categories }: { categories: string[] }) => {
               {category.replace("_", " ")}
             </li>
 
-            <span className=" ">{index < categories.length - 1 && " | "}</span>
+            <span className=" ">{index < categories.length - 2 && " | "}</span>
           </div>
         ))}
       </ul>
