@@ -15,10 +15,10 @@ const Reviews = () => {
         <div className="flex flex-row items-center h-full w-full gap-4 md:overflow-hidden md:px-64">
           <div className="flex flex-col items-center justify-center border-orange-500 border-2 p-5 rounded-full shadow-lg min-w-32 md:min-w-40 min-h-32 md:min-h-40 text-center">
             <h2 className="text-xl md:text-4xl font-bold text-orange-500">
-              4.8 ★
+              4.6 ★
             </h2>
             <p className="font-semibold text-sm md:text-lg ">
-              Based on 500+ reviews
+              Based on 250+ reviews
             </p>
           </div>
 

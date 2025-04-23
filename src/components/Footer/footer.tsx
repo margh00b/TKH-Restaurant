@@ -46,7 +46,7 @@ const Footer = () => {
 
       <div className="w-full h-[2px] bg-gray-200 mt-5 md:mt-10 mb-5"></div>
       <p className="text-center text-gray-500">
-        &copy; 2024 Tandoori Kabab Hut
+        &copy; 2025 Tandoori Kabab Hut Inc.
       </p>
     </footer>
   );

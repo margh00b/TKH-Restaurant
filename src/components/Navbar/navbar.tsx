@@ -19,6 +19,7 @@ const Navbar = ({
 }) => {
   const [navOpen, setNavOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const cartOpen = useAppSelector((state) => state.cart.show);
   const cartItems = useAppSelector((state) => state.cart.items);
   const handleReturn = useHandleReturn();
 
@@ -28,7 +29,11 @@ const Navbar = ({
   );
 
   return (
-    <nav className="fixed bg-white z-[99] top-0 w-full h-20 shadow-md px-6 flex items-center justify-between">
+    <nav
+      className={` fixed ${
+        cartOpen ? "bg-white text-black" : "hero text-white"
+      } z-[99] top-0 w-full h-20  px-6 flex items-center justify-between`}
+    >
       {/* 📱 Mobile Menu Button */}
       <button
         onClick={() => setNavOpen(!navOpen)}
@@ -46,7 +51,7 @@ const Navbar = ({
             <Link
               href={link}
               onClick={handleReturn}
-              className="text-gray-800 hover:text-orange-500 duration-200"
+              className=" hover:text-orange-500 duration-200"
             >
               {name}
             </Link>
@@ -58,7 +63,7 @@ const Navbar = ({
       {/* 🛒 Cart Icon (Right Side) */}
       {showCart && (
         <motion.button
-          className="cursor-pointer bg-orange-500 text-white px-5 py-2 rounded-full shadow-lg ml-auto hover:bg-orange-600 transition-all"
+          className="cursor-pointer bg-orange-500 text-white px-4 pt-3 pb-1 rounded-full shadow-lg  hover:bg-orange-600 transition-all"
           onClick={() => dispatch(toggleCart())}
           animate={{ x: totalCartItems > 0 ? [0, -1, 1, -1, 1, 0] : 0 }}
           transition={{

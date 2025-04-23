@@ -12,7 +12,8 @@ const ReviewItem = ({ reviewItem }: { reviewItem: reviewItem }) => {
           <FaStar className="text-orange-500" />
           <FaStar className="text-orange-500" />
           <FaStar className="text-orange-500" />
-          <FaRegStar />
+          <FaStar className="text-orange-500" />
+          {/* <FaRegStar /> */}
         </div>
       </div>
       <div className="h-1/2 ml-5 w-1/2 text-sm md:w-full md:text-base">
