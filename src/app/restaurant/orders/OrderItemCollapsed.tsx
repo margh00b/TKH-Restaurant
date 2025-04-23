@@ -59,7 +59,9 @@ const OrderItemCollapsed = ({
             order.OrderItem.map((item: any, index: any) => (
               <div key={index} className="flex w-full justify-between text-xl">
                 <p className="text-bold">{item.quantity} x </p>
-                <p className="font-semibold">{item.MenuItem?.title}</p>
+                <p className="font-semibold truncate max-w-[60%]">
+                  {item.MenuItem?.title}
+                </p>
                 <p>
                   $
                   {(
