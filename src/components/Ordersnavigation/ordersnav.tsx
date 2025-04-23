@@ -28,32 +28,41 @@ const OrdersNav = () => {
   >;
 
   return (
-    <div className="flex justify-around items-center w-full h-20 px-4 mb-5 shadow-lg rounded-[17px] text-xl border-2 border-gray-100">
-      <ul className="hidden md:flex px-10 flex-wrap">
+    <div className="w-full px-2 py-3">
+      <div className="flex w-full rounded-full shadow-md border border-gray-200 overflow-hidden">
         {categories.map((category) => {
           const orderCount = orders.filter(
             (order) => order.status === category
           ).length;
+
+          const isSelected = selectedCategory === category;
+
           return (
-            <div
+            <button
               key={category}
-              onClick={() => {
-                dispatch(setOrderCategoryState(category));
-              }}
-              className="flex items-center text-[#a9a9a9] duration-200 cursor-pointer"
+              onClick={() => dispatch(setOrderCategoryState(category))}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all duration-200 
+                ${
+                  isSelected
+                    ? "bg-orange-500 text-white"
+                    : "bg-white text-[#7a7a7a]"
+                } 
+                `}
             >
-              <li
-                className={`flex mx-[40px] py-[5px] hover:text-orange-500 ${
-                  selectedCategory === category ? "text-orange-500" : ""
+              <span>{categoryMap[category]}</span>
+              <span
+                className={`w-6 h-6 text-xs rounded-full flex items-center justify-center font-semibold ${
+                  isSelected
+                    ? "bg-white text-black"
+                    : "bg-gray-200 text-[#7a7a7a]"
                 }`}
               >
-                {categoryMap[category]}
-                <IconWithBadge icon={FaShoppingCart} badgeCount={orderCount} />
-              </li>
-            </div>
+                {orderCount}
+              </span>
+            </button>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -6,14 +6,11 @@ import { supabase } from "@/utils/supabaseClient";
 
 export async function POST(request: any) {
   const { username, password } = await request.json();
-  console.log("Username received:", username);
-  console.log("Password received:", password);
   const { data: user, error } = await supabase
     .from("User")
     .select("*")
     .eq("username", username)
     .single();
-  console.log("Supabase query result:", user);
   console.log("Error:", error);
 
   if (error || !user) {

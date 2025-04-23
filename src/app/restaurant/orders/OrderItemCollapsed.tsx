@@ -1,11 +1,7 @@
-import { updateOrder, getOrders } from "@/redux/features/orderSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
-import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { IoTime } from "react-icons/io5";
 import { FaBowlFood } from "react-icons/fa6";
 import { FaUtensils } from "react-icons/fa";
-import Button from "@/components/Button/button";
 
 const OrderItemCollapsed = ({
   order,
@@ -14,8 +10,6 @@ const OrderItemCollapsed = ({
   order: any;
   onView: () => void;
 }) => {
-  const dispatch = useAppDispatch();
-
   const [makeTime, setMakingTime] = useState(10);
   const totalQuantity = useMemo(
     () =>
@@ -35,22 +29,6 @@ const OrderItemCollapsed = ({
     return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }, [makeTime]);
 
-  const handleAcceptOrder = async () => {
-    await dispatch(updateOrder({ id: order.id, makeTime, status: "ACCEPTED" }));
-
-    await dispatch(getOrders());
-  };
-
-  const handleCancelOrder = async () => {
-    await dispatch(updateOrder({ id: order.id, status: "CANCELLED" }));
-    await dispatch(getOrders());
-  };
-
-  const handleDeliveredOrder = async () => {
-    await dispatch(updateOrder({ id: order.id, status: "PICKED_UP" }));
-    await dispatch(getOrders());
-  };
-
   return (
     <div className="flex flex-col text-lg rounded-2xl items-center h-[70vh]  bg-gray-100 text-white  shadow-2xl">
       <div
@@ -58,9 +36,9 @@ const OrderItemCollapsed = ({
           "flex justify-center rounded-2xl w-full p-5" +
           " " +
           (order.status === "NEW"
-            ? "animate-pulse-color"
+            ? "bg-orange-500"
             : order.status === "ACCEPTED"
-            ? "bg-[#177a0e]" // Example for "ACCEPTED" status
+            ? "bg-[#177a0e]"
             : order.status === "READY"
             ? "bg-[#1a76ff]"
             : "bg-[#af1c1c]")

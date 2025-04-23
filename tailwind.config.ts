@@ -13,17 +13,6 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      keyframes: {
-        pulseColor: {
-          "0%": { backgroundColor: "#ffa600" },
-          "25%": { backgroundColor: "#ff6f00" },
-          "50%": { backgroundColor: "#ff4d00" }, 
-          "100%": { backgroundColor: "#ffa600" },
-        },
-      },
-      animation: {
-        "pulse-color": "pulseColor 2s ease-in-out infinite", 
-      },
     },
   },
   plugins: [],

@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { IoTime } from "react-icons/io5";
 import { FaBowlFood } from "react-icons/fa6";
 import { FaUtensils } from "react-icons/fa";
+import { statusColorMap } from "@/utils/statusColors";
 
 const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
   const dispatch = useAppDispatch();
@@ -34,10 +35,14 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
 
   return (
     <div className="flex flex-col text-lg rounded-2xl items-center w-full h-full bg-gray-100 text-white shadow-2xl">
-      <div className="flex items-center justify-between rounded-2xl w-full p-5 bg-[#084a00]">
+      <div
+        className={`flex items-center justify-between rounded-2xl w-full p-5 ${
+          statusColorMap[order.status] || "bg-gray-300"
+        }`}
+      >
         <button
           onClick={onClose}
-          className=" bg-orange-500 text-white rounded-full h-8 w-8 flex items-center justify-center"
+          className=" bg-gray-700/70  text-white rounded-full h-8 w-8 flex items-center justify-center"
         >
           ✖
         </button>
@@ -54,10 +59,10 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
         {order.status !== "NEW" ? <div className="w-8"></div> : null}
 
         {order.status === "NEW" && (
-          <div className={`flex items-center`}>
+          <div className={`flex items-center `}>
             <button
               onClick={() => setMakingTime((prevTime) => prevTime - 5)}
-              className="h-10 w-10 flex items-center justify-center bg-white/50 shadow-lg rounded-full text-lg"
+              className="h-10 w-10 flex items-center justify-center bg-white/30 shadow-xl rounded-full text-lg"
             >
               -5
             </button>
@@ -67,7 +72,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
             </div>
             <button
               onClick={() => setMakingTime((prevTime) => prevTime + 5)}
-              className="h-10 w-10 flex items-center justify-center bg-white/50 shadow-lg rounded-full text-lg"
+              className="h-10 w-10 flex items-center justify-center bg-white/30 shadow-xl rounded-full text-lg"
             >
               +5
             </button>
@@ -119,7 +124,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
           {order.status !== "READY" && (
             <button
               onClick={() => handleUpdateStatus("CANCELLED")}
-              className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl"
+              className="place-self-center shadow-lg border-gray-600 border-2 text-gray-600 bg-gray-100 text-lg py-2 px-6 rounded-2xl"
             >
               Cancel
             </button>
@@ -128,7 +133,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
           {order.status === "ACCEPTED" && (
             <button
               onClick={() => handleUpdateStatus("READY")}
-              className="place-self-center shadow-lg bg-green-600 text-white text-lg py-2 px-6 rounded-2xl"
+              className="place-self-center shadow-lg border-green-600 border-2 text-green-600 bg-green-100 text-lg py-2 px-6 rounded-2xl"
             >
               Ready for pickup
             </button>
@@ -136,7 +141,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
           {order.status === "NEW" && (
             <button
               onClick={() => handleUpdateStatus("ACCEPTED")}
-              className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl"
+              className="place-self-center shadow-lg border-green-600 border-2 text-green-600 bg-green-100 text-lg py-2 px-6 rounded-2xl"
             >
               Confirm Order
             </button>
@@ -144,7 +149,7 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
           {order.status === "READY" && (
             <button
               onClick={() => handleUpdateStatus("PICKED_UP")}
-              className="place-self-center shadow-lg bg-orange-500 text-white text-lg py-2 px-6 rounded-2xl hover:bg-orange-600"
+              className="place-self-end shadow-lg border-green-600 border-2 text-green-600 bg-green-100 text-lg py-2 px-6 rounded-2xl "
             >
               Picked Up
             </button>
