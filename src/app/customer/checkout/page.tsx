@@ -52,6 +52,18 @@ const Checkout = () => {
         throw new Error(data.error || "Failed to place order");
       }
 
+      await fetch("/restaurant/api", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          custName: name,
+          orderId: data.orderId,
+          newStatus: "Pending",
+          estimatedMakeTime: "Soon",
+          toEmail: email,
+        }),
+      });
+
       router.push("/customer/confirmation?orderId=" + data.orderId);
     } catch (error: any) {
       console.error("Error placing order:", error.message || error);

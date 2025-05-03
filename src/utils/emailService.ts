@@ -1,5 +1,5 @@
 export const sendEmailNotif = async (order: any) => {
-  /* try {
+  try {
     const response = await fetch(`/restaurant/api`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -17,6 +17,5 @@ export const sendEmailNotif = async (order: any) => {
     console.log(`✅ Email sent for Order ${order.id}`);
   } catch (error) {
     console.error(`❌ Error sending email for Order ${order.id}`, error);
-  } */
-  console.log("Mock email sent!");
+  }
 };

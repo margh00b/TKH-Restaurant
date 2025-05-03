@@ -6,13 +6,7 @@ export async function POST(request: any) {
   try {
     const { custName, orderId, newStatus, estimatedMakeTime, toEmail } =
       await request.json();
-    console.log("Received request:", {
-      custName,
-      orderId,
-      newStatus,
-      estimatedMakeTime,
-      toEmail,
-    });
+    
 
     const templateParams = {
       customer_name: custName,
@@ -20,10 +14,9 @@ export async function POST(request: any) {
       new_status: newStatus,
       est_makeTime: estimatedMakeTime,
       to_email: toEmail,
-      title: "testing from server",
     };
 
-    console.log("Template params:", templateParams);
+    
     const emailData = {
       service_id: process.env.EMAILJS_SERVICE_ID!,
       template_id: process.env.EMAILJS_TEMPLATE_ID!,

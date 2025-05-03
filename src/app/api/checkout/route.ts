@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     if (orderItemsError) {
       throw new Error(orderItemsError.message);
     }
-
+    
     return NextResponse.json({ orderId: order.id }, { status: 200 });
   } catch (error: any) {
     console.error("Error placing order:", error.message || error);
