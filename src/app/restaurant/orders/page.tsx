@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import {
   getOrders,
@@ -35,19 +35,26 @@ const Orders = () => {
       }
     };
   }, [dispatch]);
+
+  const prevOrderIdsRef = useRef<number[]>([]);
+
   useEffect(() => {
-    if (orders.length > 0) {
+    const currentIds = orders.map((order) => order.id);
+    const prevIds = prevOrderIdsRef.current;
+
+    const newOrders = currentIds.filter((id) => !prevIds.includes(id));
+
+    prevOrderIdsRef.current = currentIds;
+
+    if (newOrders.length > 0) {
       let count = 0;
       const intervalRef = setInterval(() => {
-        console.log("Playing sound..."); // Debugg
         play();
         count++;
         if (count === 4) {
           clearInterval(intervalRef);
         }
       }, 2200);
-
-      // Cleanup the interval when the component unmounts or orders change
       return () => clearInterval(intervalRef);
     }
   }, [orders, play]);
