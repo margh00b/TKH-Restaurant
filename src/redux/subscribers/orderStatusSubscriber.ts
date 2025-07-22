@@ -12,7 +12,9 @@ export function orderStatusSubscriber(store: any) {
         console.log(
           `Order ${order.id} status changed: ${previousOrder.status} → ${order.status}`
         );
-        sendEmailNotif(order);
+        if (order.status === "ACCEPTED" || order.status === "CANCELLED") {
+          sendEmailNotif(order);
+        }
       }
     });
     previousOrders = [...currentOrders];
