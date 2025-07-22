@@ -14,12 +14,12 @@ const OrdersNav = () => {
   const orders = useAppSelector((state) => state.orders.orders);
 
   const categoryMap: Record<
-    "NEW" | "ACCEPTED" | "READY" | "PICKED_UP",
+    "NEW" | "ACCEPTED" | /* "READY" |  */"PICKED_UP",
     string
   > = {
     NEW: "New Orders",
     ACCEPTED: "In Progress",
-    READY: "Ready",
+    /* READY: "Ready", */
     PICKED_UP: "Completed",
   };
 

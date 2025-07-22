@@ -132,10 +132,10 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
 
           {order.status === "ACCEPTED" && (
             <button
-              onClick={() => handleUpdateStatus("READY")}
+              onClick={() => handleUpdateStatus("PICKED_UP")}
               className="place-self-center shadow-lg border-green-600 border-2 text-green-600 bg-green-100 text-lg py-2 px-6 rounded-2xl"
             >
-              Ready for pickup
+              Picked Up
             </button>
           )}
           {order.status === "NEW" && (
@@ -146,14 +146,14 @@ const OrderItem = ({ order, onClose }: { order: any; onClose: () => void }) => {
               Confirm Order
             </button>
           )}
-          {order.status === "READY" && (
+          {/* {order.status === "READY" && (
             <button
               onClick={() => handleUpdateStatus("PICKED_UP")}
               className="place-self-end shadow-lg border-green-600 border-2 text-green-600 bg-green-100 text-lg py-2 px-6 rounded-2xl "
             >
               Picked Up
             </button>
-          )}
+          )} */}
         </div>
       )}
     </div>

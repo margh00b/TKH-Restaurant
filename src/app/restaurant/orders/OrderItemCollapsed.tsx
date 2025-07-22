@@ -39,8 +39,8 @@ const OrderItemCollapsed = ({
             ? "bg-orange-500"
             : order.status === "ACCEPTED"
             ? "bg-[#177a0e]"
-            : order.status === "READY"
-            ? "bg-[#1a76ff]"
+            /* : order.status === "READY"
+            ? "bg-[#1a76ff]" */
             : "bg-[#af1c1c]")
         }
       >
