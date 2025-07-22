@@ -18,9 +18,6 @@ const DealItems = ({ menuItem }: { menuItem: menuItem }) => {
       />
       <div className="grid h-full mt-5 mx-5 w-[200px]">
         <h3 className="mb-2">{title}</h3>
-        <p className="text-gray-500 text-base h-fit overflow-hidden">
-          Lamb stew with Rice & Naan
-        </p>
         <div className="flex justify-between items-center">
           <span className="text-gray-700">${price}</span>
           <Button

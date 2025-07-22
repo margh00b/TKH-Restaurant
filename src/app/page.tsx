@@ -37,7 +37,7 @@ export default function Home() {
         <div className={``}>
           <Navbar links={navbarLinks} />
           <Hero />
-          <Deals />
+          {/* <Deals /> */}
           <MenuComp />
           <Reviews />
           <Footer />
